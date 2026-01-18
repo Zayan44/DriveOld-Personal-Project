@@ -8,11 +8,11 @@
 		<version>4.0.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.eu</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>br.com.personalproject</groupId>
+	<artifactId>siseventos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sistemaEventos</name>
-	<description>Sistema para organização de Eventos</description>
+	<name>siseventos</name>
+	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -39,6 +39,12 @@
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

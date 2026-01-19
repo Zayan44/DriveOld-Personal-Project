@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.personalproject.siseventos.entity.Servico;
 
-public interface servicoRepository extends JpaRepository<Servico, Long> {
+public interface ServicoRepository extends JpaRepository<Servico, Long> {
 }

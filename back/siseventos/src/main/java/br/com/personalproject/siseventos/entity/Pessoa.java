@@ -1,17 +1,17 @@
 package br.com.personalproject.siseventos.entity;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
 
-@Entity
+@MappedSuperclass
 @Getter
 @Setter
-public class Pessoa {
+public abstract class Pessoa {
     
     //Atributos
     @Id

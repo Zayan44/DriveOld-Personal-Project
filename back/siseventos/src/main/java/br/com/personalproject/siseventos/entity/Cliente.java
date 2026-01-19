@@ -1,8 +1,11 @@
 package br.com.personalproject.siseventos.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +16,12 @@ import lombok.Setter;
 public class Cliente extends Pessoa {
         
     //Atributos
-    private ArrayList<Veiculo> veiculosCadastradoList = new ArrayList<>();
+    @OneToMany(
+        mappedBy="cliente",
+        cascade = CascadeType.ALL,
+        orphanRemoval=true
+    )
+    private List<Veiculo> veiculosCadastradoList = new ArrayList<>();
 
     //Construtores
     public Cliente() {

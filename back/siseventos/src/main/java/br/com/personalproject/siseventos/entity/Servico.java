@@ -28,6 +28,7 @@ public class Servico {
     }
 
     public Servico(String nome, String descricao, BigDecimal preco) {
+        this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
     }

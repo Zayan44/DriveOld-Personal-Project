@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 public class Peca {
 
+    //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPeca;

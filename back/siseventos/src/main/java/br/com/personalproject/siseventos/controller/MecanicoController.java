@@ -41,5 +41,4 @@ public class MecanicoController {
     public ResponseEntity<?> deletarMecanico(@PathVariable Long id) {
         return mecanicoService.deletarMecanico(id);
     }
-
 }

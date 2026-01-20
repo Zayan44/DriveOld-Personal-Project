@@ -15,6 +15,8 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class ItemOrcamento {
     
+    //Atributos
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;

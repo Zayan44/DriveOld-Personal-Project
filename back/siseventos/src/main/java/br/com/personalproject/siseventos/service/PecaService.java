@@ -7,9 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.personalproject.siseventos.repository.PecaRepository;
 import br.com.personalproject.siseventos.entity.Peca;
-
+import br.com.personalproject.siseventos.repository.PecaRepository;
 
 @Service
 public class PecaService {

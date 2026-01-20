@@ -1,4 +1,4 @@
-package  br.com.personalproject.siseventos.service;
+package br.com.personalproject.siseventos.service;
 
 import java.net.URI;
 
@@ -16,6 +16,7 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
+    //Metodo para listar clientes
     public ResponseEntity<Iterable<Cliente>> listarCliente() {
         Iterable<Cliente> clientes = clienteRepository.findAll();
         return ResponseEntity.ok(clientes);
@@ -38,11 +39,9 @@ public class ClienteService {
     //Metodo para atualizar Clientes
     public ResponseEntity<?> atualizarCliente(Cliente cliente, Long id) {
         
-
         cliente.setIdPessoa(id);
-
         Cliente clienteAtualizar = clienteRepository.save(cliente);
-        
+
         return ResponseEntity.ok(clienteAtualizar);
     }
 

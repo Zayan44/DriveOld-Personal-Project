@@ -21,7 +21,7 @@ public class PecaController {
     @Autowired
     PecaService PecaService;
     
-@GetMapping("/listar/peca")
+    @GetMapping("/listar/peca")
 
     public ResponseEntity<Iterable<Peca>> listarPeca() {
     return PecaService.listarPeca();

@@ -28,13 +28,13 @@ public class PecaController {
     }
 
     @PostMapping("/cadastrar/peca")
-    public ResponseEntity<?> cadastrarPeca(@RequestBody Peca Peca) {
-        return PecaService.cadastrarPeca(Peca);
+    public ResponseEntity<?> cadastrarPeca(@RequestBody Peca peca) {
+        return PecaService.cadastrarPeca(peca);
     }
 
     @PutMapping("/atualizar/peca/{id}")
-    public ResponseEntity<?> atualizarPeca(@RequestBody Peca Peca, @PathVariable Long id) {
-        return PecaService.atualizarPeca(Peca,id);
+    public ResponseEntity<?> atualizarPeca(@RequestBody Peca peca, @PathVariable Long id) {
+        return PecaService.atualizarPeca(peca,id);
     }
 
     @DeleteMapping("/deletar/peca/{id}")

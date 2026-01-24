@@ -5,20 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.personalproject.siseventos.association.ItemOrcamento;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Orcamento {
     
     //Atributos
@@ -42,15 +46,13 @@ public class Orcamento {
     private BigDecimal valorServico;
     private BigDecimal valorPeca;
     private BigDecimal desconto;
+    
+        //metodo para adicionar ItemOrcamento
+        public void adicionarItemOrcamento(ItemOrcamento itemOrcamento) {
+            
+            itemOrcamento.setOrcamento(this);
+            this.itensOrcamento.add(itemOrcamento);
+        }
 
-    public Orcamento() {}
 
-    public Orcamento(Veiculo veiculo, String status, BigDecimal valorTotal, BigDecimal valorServico, BigDecimal valorPeca, BigDecimal desconto) {
-        this.veiculo = veiculo;
-        this.status = status;
-        this.valorTotal = valorTotal;
-        this.valorServico = valorServico;
-        this.valorPeca = valorPeca;
-        this.desconto = desconto;
-    }
 }

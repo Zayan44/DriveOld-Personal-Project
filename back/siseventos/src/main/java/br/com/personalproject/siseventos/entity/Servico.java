@@ -6,12 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Servico {
 
     //Atributos
@@ -23,15 +27,6 @@ public class Servico {
     private String descricao;
     private BigDecimal preco;
 
-    //Construtores
-    public Servico() {
-    }
-
-    public Servico(String nome, String descricao, BigDecimal preco) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-    }
 
     //Metodos
 }

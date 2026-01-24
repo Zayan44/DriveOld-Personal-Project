@@ -4,11 +4,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import br.com.personalproject.siseventos.association.ItemOrcamento;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrcamentoRequestDTO {
 
     private Long idVeiculo;
@@ -16,5 +22,5 @@ public class OrcamentoRequestDTO {
     private String status;
     private BigDecimal desconto;
 
-    private List<ItemOrcamentoRequestDTO> itens = new ArrayList<>();
+    private List<ItemOrcamento> itens = new ArrayList<>();
 }

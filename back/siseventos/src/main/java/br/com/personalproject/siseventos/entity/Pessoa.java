@@ -4,12 +4,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @MappedSuperclass
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class Pessoa {
     
     //Atributos
@@ -26,20 +30,6 @@ public abstract class Pessoa {
     private String cidade;
     private String estado;
     
-    //Construtores
-    public Pessoa() {};
-    
-    public Pessoa(String nome, String cpf, String email, String senha, String telefone, String endereco, String cidade, String estado) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.endereco = endereco;
-        this.cidade = cidade;
-        this.estado = estado;
-    }
-
     //Metodos
 
 

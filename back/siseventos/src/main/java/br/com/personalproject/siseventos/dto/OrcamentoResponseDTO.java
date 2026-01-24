@@ -4,11 +4,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrcamentoResponseDTO {
 
     private Long idOrcamento;
@@ -23,5 +27,5 @@ public class OrcamentoResponseDTO {
     private BigDecimal valorPeca;
     private BigDecimal desconto;
 
-    private List<ItemOrcamentoResponseDTO> itens = new ArrayList<>();
+    private List<ItemOrcamentoRequestDTO> itensOrcamento = new ArrayList<>();
 }

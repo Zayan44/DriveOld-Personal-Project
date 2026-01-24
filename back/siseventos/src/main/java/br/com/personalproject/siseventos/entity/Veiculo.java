@@ -6,13 +6,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Veiculo {
     
 
@@ -30,18 +34,6 @@ public class Veiculo {
     private String marca;
     private String modelo;
     private int ano;
-
-    //Construtores
-
-    public Veiculo() {
-    }
-
-    public Veiculo(String placa, String marca, String modelo, int ano) {
-        this.placa = placa;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.ano = ano;
-    }
 
     //Metodos
 }

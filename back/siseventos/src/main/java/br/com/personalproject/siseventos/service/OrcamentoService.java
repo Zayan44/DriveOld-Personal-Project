@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.personalproject.siseventos.dto.OrcamentoResponseDTO;
 import br.com.personalproject.siseventos.entity.Orcamento;
 import br.com.personalproject.siseventos.entity.Veiculo;
+import br.com.personalproject.siseventos.mapper.MapperOrcamento;
 import br.com.personalproject.siseventos.repository.OrcamentoRepository;
 import br.com.personalproject.siseventos.repository.VeiculoRepository;
+import java.util.List;
 
 @Service
 public class OrcamentoService {
@@ -25,9 +28,12 @@ public class OrcamentoService {
     VeiculoRepository veiculoRepository;
 
     // Metodo para listar orcamentos
-    public ResponseEntity<Iterable<Orcamento>> listarOrcamento() {
-        Iterable<Orcamento> orcamentos = orcamentoRepository.findAll();
-        return ResponseEntity.ok(orcamentos);
+    public List<OrcamentoResponseDTO> listarOrcamento() {
+        
+        return orcamentoRepository.findAll()
+        .stream()
+        .map(MapperOrcamento::enviarDTO)
+        .toList();
     }
 
     // Metodo para cadastrar orcamentos
@@ -48,7 +54,7 @@ public class OrcamentoService {
         return ResponseEntity.created(location).body(orcamentoSalvo);
      }   
 
-    // Metodo para deletar orcamentos
+    // Metodo para deletar orcamento
         public ResponseEntity<?> deletarOrcamento(@PathVariable Long idVeiculo) {
 
         orcamentoRepository.deleteById(idVeiculo);

@@ -6,12 +6,16 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cliente extends Pessoa {
         
     //Atributos
@@ -21,14 +25,6 @@ public class Cliente extends Pessoa {
         orphanRemoval=true
     )
     private List<Veiculo> veiculosCadastradoList = new ArrayList<>();
-
-    //Construtores
-    public Cliente() {
-    }
-
-    public Cliente(String nome, String cpf, String email, String senha, String telefone, String endereco, String cidade, String estado, String preferencia) {
-        super(nome, cpf, email, senha, telefone, endereco, cidade, estado);
-    }
 
     //Metodos
     

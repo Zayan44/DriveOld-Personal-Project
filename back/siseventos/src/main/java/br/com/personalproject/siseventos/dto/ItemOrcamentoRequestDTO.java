@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class VeiculoRequestDTO {
-
+public class ItemOrcamentoRequestDTO {
+    
+    private Long idReferencia; //peca ou servico
     private String tipo;
-    private String placa;
-    private String marca;
-    private String modelo;
-    private int ano;
+    private int quantidade;
+    
 }

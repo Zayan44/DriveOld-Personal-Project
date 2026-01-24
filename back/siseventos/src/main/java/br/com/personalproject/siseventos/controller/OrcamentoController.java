@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.personalproject.siseventos.entity.Orcamento;
 import br.com.personalproject.siseventos.service.OrcamentoService;
 
+import java.util.List;
+
+import br.com.personalproject.siseventos.dto.OrcamentoResponseDTO;
+
 @RestController
 @CrossOrigin("http://localhost:5173")
 public class OrcamentoController {
@@ -22,15 +26,16 @@ public class OrcamentoController {
     
     @GetMapping("/listar/orcamento")
 
-    public ResponseEntity<Iterable<Orcamento>> listarOrcamento() {
-    return orcamentoService.listarOrcamento();
-    }
+    public ResponseEntity<List<OrcamentoResponseDTO>> listarOrcamento() {
 
+    return ResponseEntity.ok(orcamentoService.listarOrcamento());
+    
+}
     @PostMapping("/cadastrar/orcamento")
     public ResponseEntity<?> cadastrarOrcamento(@RequestBody Orcamento orcamento, @PathVariable Long idVeiculo) {
         return orcamentoService.cadastrarOrcamento(orcamento,idVeiculo);
     }
-
+    
     @DeleteMapping("/deletar/Orcamento/{id}")
     public ResponseEntity<?> deletarOrcamento(@PathVariable Long id) {
         return orcamentoService.deletarOrcamento(id);

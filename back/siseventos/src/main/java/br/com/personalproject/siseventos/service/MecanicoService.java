@@ -16,6 +16,7 @@ public class MecanicoService {
     @Autowired
     MecanicoRepository mecanicoRepository;
 
+    //metodo para listar mecanicos
     public ResponseEntity<Iterable<Mecanico>> listarMecanico() {
         Iterable<Mecanico> mecanicos = mecanicoRepository.findAll();
         return ResponseEntity.ok(mecanicos);

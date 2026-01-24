@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.personalproject.siseventos.repository.ServicoRepository;
 import br.com.personalproject.siseventos.entity.Servico;
+import br.com.personalproject.siseventos.repository.ServicoRepository;
 
 @Service
 public class ServicoService {

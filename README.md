@@ -20,7 +20,7 @@ Sistema para controle de pessoas e demandas em uma oficina mecânica
 ```
 src/main/java/br/com/personalproject/siseventos/
 ├── 📁 association
-│   └── 📄 ItemOrcamento.java             # Entidade de ligação (Many-to-Many com atributos)
+│   └── 📄 ItemOrcamento.java             # Entidade de ligação (Many-to-Many de Peca e Servico com Orcamento)
 ├── 📁 controller
 │   ├── 📄 ClienteController.java
 │   ├── 📄 ItemOrcamentoController.java
@@ -46,7 +46,7 @@ src/main/java/br/com/personalproject/siseventos/
 │   ├── 📄 ServicoRepository.java
 │   └── 📄 VeiculoRepository.java
 ├── 📁 entity
-│   ├── 📄 Pessoa.java                   # @MappedSuperclass ou @Inheritance
+│   ├── 📄 Pessoa.java                   # @MappedSuperclass
 │   ├── 📄 Cliente.java
 │   ├── 📄 Mecanico.java
 │   ├── 📄 Orcamento.java

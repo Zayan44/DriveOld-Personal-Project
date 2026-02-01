@@ -51,4 +51,9 @@ public class PecaService {
         return ResponseEntity.noContent().build();
     }
 
+    //Metodo para buscar peca por id
+    public Peca buscarPecaporId(Long idPeca) {
+        return pecaRepository.findById(idPeca).get();
+    }
+
 }

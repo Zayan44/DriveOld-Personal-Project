@@ -21,6 +21,7 @@ public class ClienteResponseDTO {
     private String telefone;
     private String endereco;
     private String cidade;
+    private String bairro;
     private String estado;
 
     private List<VeiculoResponseDTO> veiculos = new ArrayList<>();

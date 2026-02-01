@@ -3,17 +3,23 @@ package br.com.personalproject.siseventos.association;
 import java.math.BigDecimal;
 
 import br.com.personalproject.siseventos.entity.Orcamento;
+import br.com.personalproject.siseventos.entity.Peca;
+import br.com.personalproject.siseventos.entity.Servico;
+import br.com.personalproject.siseventos.enumerated.TipoItemOrcamento;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 //Associasse com peca e servico
 
@@ -27,17 +33,22 @@ public class ItemOrcamento {
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
-    private Long id;
+    private Long idItemOrcamento;
 
     @ManyToOne
     @JoinColumn(name = "fk_orcamento_id",nullable = false)
-    Orcamento orcamento;
+    private Orcamento orcamento;
 
-    @OneToMany
-    @JoinColumn(name = "fk_pecaouservico")
-    private Long idReferencia;
+    @ManyToOne
+    @JoinColumn(name = "fk_peca_id")
+    private Peca peca;
 
-    private String tipo;
+    @ManyToOne
+    @JoinColumn(name = "fk_servico_id")
+    private Servico servico;
+
+    @Enumerated(EnumType.STRING)
+    private TipoItemOrcamento tipo;
 
     private int quantidade;
     private BigDecimal valorUnitario;

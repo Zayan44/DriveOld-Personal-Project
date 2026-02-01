@@ -11,30 +11,34 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.personalproject.siseventos.entity.Cliente;
 import br.com.personalproject.siseventos.service.ClienteService;
+import br.com.personalproject.siseventos.dto.ClienteResponseDTO;
+
+import java.util.List;
+
+import br.com.personalproject.siseventos.dto.ClienteRequestDTO;
 
 @RestController
 @CrossOrigin("http://localhost:5173")
 public class ClienteController {
 
-    @Autowired
-    ClienteService clienteService;
+@Autowired
+ClienteService clienteService;
     
 @GetMapping("/listar/cliente")
 
-    public ResponseEntity<Iterable<Cliente>> listarCliente() {
+    public ResponseEntity<List<ClienteResponseDTO>> listarCliente() {
     return clienteService.listarCliente();
     }
 
     @PostMapping("/cadastrar/cliente")
-    public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
-        return clienteService.cadastrarCliente(cliente);
+    public ResponseEntity<?> cadastrarCliente(@RequestBody ClienteRequestDTO dto) {
+        return clienteService.cadastrarCliente(dto);
     }
 
     @PutMapping("/atualizar/cliente/{id}")
-    public ResponseEntity<?> atualizarCliente(@RequestBody Cliente Cliente, @PathVariable Long id) {
-        return clienteService.atualizarCliente(Cliente,id);
+    public ResponseEntity<?> atualizarCliente(@RequestBody ClienteRequestDTO dto, @PathVariable Long id) {
+        return clienteService.atualizarCliente(dto, id);
     }
 
     @DeleteMapping("/deletar/cliente/{id}")

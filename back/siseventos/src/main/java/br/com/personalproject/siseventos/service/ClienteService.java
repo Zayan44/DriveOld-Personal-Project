@@ -7,8 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.personalproject.siseventos.dto.ClienteResponseDTO;
 import br.com.personalproject.siseventos.entity.Cliente;
 import br.com.personalproject.siseventos.repository.ClienteRepository;
+
+import br.com.personalproject.siseventos.mapper.ClienteMapper;
+import java.util.List; 
+import br.com.personalproject.siseventos.dto.ClienteRequestDTO;
 
 @Service
 public class ClienteService {
@@ -17,32 +22,47 @@ public class ClienteService {
     ClienteRepository clienteRepository;
 
     //Metodo para listar clientes
-    public ResponseEntity<Iterable<Cliente>> listarCliente() {
-        Iterable<Cliente> clientes = clienteRepository.findAll();
-        return ResponseEntity.ok(clientes);
+    public ResponseEntity<List<ClienteResponseDTO>> listarCliente() {
+
+        List <Cliente> clientes = clienteRepository.findAll();
+        
+        List <ClienteResponseDTO> dto = clientes
+            .stream()
+            .map(ClienteMapper::toDto)
+            .toList();
+
+        return ResponseEntity.ok(dto);
 }
 
     //Metodo para cadastrar Clientes
-    public ResponseEntity<?> cadastrarCliente(Cliente cliente) {
+    public ResponseEntity<?> cadastrarCliente(ClienteRequestDTO dto) {
         
-        Cliente clienteSalvo = clienteRepository.save(cliente);
+        Cliente cliente = ClienteMapper.toEntity(dto);
+
+        clienteRepository.save(cliente);
         
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
-        .buildAndExpand(clienteSalvo.getIdPessoa())
+        .buildAndExpand(cliente.getIdPessoa())
         .toUri();
 
-        return ResponseEntity.created(location).body(clienteSalvo);
+        return ResponseEntity.created(location).body(dto);
     }
 
     //Metodo para atualizar Clientes
-    public ResponseEntity<?> atualizarCliente(Cliente cliente, Long id) {
+    public ResponseEntity<?> atualizarCliente(ClienteRequestDTO dto, Long id) {
         
+        Cliente cliente = clienteRepository.findById(id).get();
+
+        ClienteMapper.toEntity(dto, cliente);
+
+        Cliente cliente = ClienteMapper.toEntity(dto);
         cliente.setIdPessoa(id);
         Cliente clienteAtualizar = clienteRepository.save(cliente);
+        ClienteResponseDTO clienteResponseDTO = ClienteMapper.toDto(clienteAtualizar);
 
-        return ResponseEntity.ok(clienteAtualizar);
+        return ResponseEntity.ok(clienteResponseDTO);
     }
 
     //Metodo para deletar Clientes

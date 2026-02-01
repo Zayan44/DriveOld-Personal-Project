@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.personalproject.siseventos.association.ItemOrcamento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import br.com.personalproject.siseventos.association.ItemOrcamento;
 
 @Getter
 @Setter

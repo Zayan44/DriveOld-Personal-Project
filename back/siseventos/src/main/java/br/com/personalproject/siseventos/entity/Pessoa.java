@@ -27,6 +27,7 @@ public abstract class Pessoa {
     private String senha;
     private String telefone;
     private String endereco;
+    private String bairro;
     private String cidade;
     private String estado;
     

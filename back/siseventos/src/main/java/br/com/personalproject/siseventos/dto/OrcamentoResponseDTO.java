@@ -27,5 +27,5 @@ public class OrcamentoResponseDTO {
     private BigDecimal valorPeca;
     private BigDecimal desconto;
 
-    private List<ItemOrcamentoRequestDTO> itensOrcamento = new ArrayList<>();
+    private List<ItemOrcamentoResponseDTO> detalhes = new ArrayList<>();
 }

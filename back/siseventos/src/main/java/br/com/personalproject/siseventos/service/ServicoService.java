@@ -51,4 +51,9 @@ public class ServicoService {
         return ResponseEntity.noContent().build();
     }
 
+    //Metodo para buscar servico por id
+    public Servico buscarServicoporId(Long idServico) {
+        return servicoRepository.findById(idServico).get();
+    }
+
 }

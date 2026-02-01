@@ -15,6 +15,7 @@ import br.com.personalproject.siseventos.entity.Cliente;
 import br.com.personalproject.siseventos.entity.Veiculo;
 import br.com.personalproject.siseventos.repository.ClienteRepository;
 import br.com.personalproject.siseventos.repository.VeiculoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class VeiculoService {
@@ -72,6 +73,13 @@ public class VeiculoService {
     public ResponseEntity<?> deletarVeiculo(Long id) {
         veiculoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Transactional
+    public Veiculo buscarVeiculoporId(Long idVeiculo) {
+        Optional<Veiculo> veiculo = veiculoRepository.findById(idVeiculo);
+        Veiculo v = veiculo.get();
+        return v;
     }
 
 }

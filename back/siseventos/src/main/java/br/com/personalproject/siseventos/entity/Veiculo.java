@@ -29,6 +29,7 @@ public class Veiculo {
     @JoinColumn(name = "fk_cliente_id",nullable=false)
     private Cliente cliente;
 
+    private String proprietario;
     private String tipo;  //caminhao, carro, moto
     private String placa;
     private String marca;
@@ -36,4 +37,6 @@ public class Veiculo {
     private int ano;
 
     //Metodos
+
+
 }

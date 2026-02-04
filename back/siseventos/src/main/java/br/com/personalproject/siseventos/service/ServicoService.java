@@ -1,59 +1,90 @@
 package br.com.personalproject.siseventos.service;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.personalproject.siseventos.dto.ServicoRequestDTO;
+import br.com.personalproject.siseventos.dto.ServicoResponseDTO;
 import br.com.personalproject.siseventos.entity.Servico;
+import br.com.personalproject.siseventos.mapper.ServicoMapper;
 import br.com.personalproject.siseventos.repository.ServicoRepository;
 
 @Service
 public class ServicoService {
-    
-    @Autowired 
-    ServicoRepository servicoRepository;
 
-    public ResponseEntity<Iterable<Servico>> listarServico() {
-        Iterable<Servico> servicos = servicoRepository.findAll();
-        return ResponseEntity.ok(servicos);
-}
+    @Autowired
+    private ServicoRepository servicoRepository;
 
-    //Metodo para cadastrar mecanicos
-    public ResponseEntity<?> cadastrarServico(Servico servico) {
-        
+    // Listar serviços
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<ServicoResponseDTO>> listarServico() {
+
+        List<ServicoResponseDTO> lista = servicoRepository.findAll()
+                .stream()
+                .map(ServicoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(lista);
+    }
+
+    // Cadastrar serviço
+    @Transactional
+    public ResponseEntity<ServicoResponseDTO> cadastrarServico(ServicoRequestDTO dto) {
+
+        Servico servico = ServicoMapper.toEntity(dto);
+
         Servico servicoSalvo = servicoRepository.save(servico);
-        
+
+        ServicoResponseDTO response = ServicoMapper.toDto(servicoSalvo);
+
         URI location = ServletUriComponentsBuilder
-        .fromCurrentRequest()
-        .path("/{id}")
-        .buildAndExpand(servicoSalvo.getIdServico())
-        .toUri();
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(servicoSalvo.getIdServico())
+                .toUri();
 
-        return ResponseEntity.created(location).body(servicoSalvo);
+        return ResponseEntity.created(location).body(response);
     }
 
-    //Metodo para atualizar mecanicos
-    public ResponseEntity<?> atualizarServico(Servico servico, Long id) {
+    // Atualizar serviço
+    @Transactional
+    public ResponseEntity<ServicoResponseDTO> atualizarServico(ServicoRequestDTO dto, Long id) {
 
-        servico.setIdServico(id);
+        Servico servico = servicoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
 
-        Servico servicoAtualizar = servicoRepository.save(servico);
-        
-        return ResponseEntity.ok(servicoAtualizar);
+        // Atualiza campos
+        servico.setNome(dto.getNome());
+        servico.setDescricao(dto.getDescricao());
+        servico.setPreco(dto.getPreco());
+
+        Servico servicoAtualizado = servicoRepository.save(servico);
+
+        return ResponseEntity.ok(ServicoMapper.toDto(servicoAtualizado));
     }
 
-    //Metodo para deletar mecanicos
-    public ResponseEntity<?> deletarServico(Long id) {
+    // Deletar serviço
+    @Transactional
+    public ResponseEntity<Void> deletarServico(Long id) {
+
         servicoRepository.deleteById(id);
+
         return ResponseEntity.noContent().build();
     }
 
-    //Metodo para buscar servico por id
-    public Servico buscarServicoporId(Long idServico) {
-        return servicoRepository.findById(idServico).get();
-    }
+    // Buscar serviço por id
+    @Transactional(readOnly = true)
+    public Servico buscarServicoPorId(Long id) {
 
+        Servico servico = servicoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
+
+        return servico;
+    }
 }

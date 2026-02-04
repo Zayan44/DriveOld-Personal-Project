@@ -1,85 +1,103 @@
 package br.com.personalproject.siseventos.service;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.personalproject.siseventos.dto.VeiculoRequestDTO;
+import br.com.personalproject.siseventos.dto.VeiculoResponseDTO;
 import br.com.personalproject.siseventos.entity.Cliente;
 import br.com.personalproject.siseventos.entity.Veiculo;
+import br.com.personalproject.siseventos.mapper.VeiculoMapper;
 import br.com.personalproject.siseventos.repository.ClienteRepository;
 import br.com.personalproject.siseventos.repository.VeiculoRepository;
 import jakarta.transaction.Transactional;
 
+
 @Service
 public class VeiculoService {
+
+    @Autowired
+    private VeiculoRepository veiculoRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+// Listar veículos
     
-    @Autowired
-    VeiculoRepository veiculoRepository;
+    public ResponseEntity<List<VeiculoResponseDTO>> listarVeiculo() {
 
-    @Autowired
-    ClienteRepository clienteRepository;
+            List<VeiculoResponseDTO> veiculos = veiculoRepository.findAll()
+                    .stream()
+                    .map(VeiculoMapper::toDto)
+                    .toList();
 
-    //metodo para listar veiculos
-    public ResponseEntity<Iterable<Veiculo>> listarVeiculo() {
-        return ResponseEntity.ok(veiculoRepository.findAll()); 
+            return ResponseEntity.ok(veiculos);
     }
 
-    //metodo para cadastrar veiculo
-    public ResponseEntity<?> cadastrarVeiculo(@RequestBody Veiculo veiculo, @PathVariable Long idCliente) {
+    public ResponseEntity<VeiculoResponseDTO> cadastrarVeiculo(VeiculoRequestDTO dto, Long idCliente) {
 
         Optional<Cliente> clienteEncontrado = clienteRepository.findById(idCliente);
 
+        if (clienteEncontrado.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Veiculo veiculo = VeiculoMapper.toEntity(dto);
+
         veiculo.setCliente(clienteEncontrado.get());
 
-        Veiculo veiculoComCliente = veiculoRepository.save(veiculo);
+        Veiculo veiculoSalvo = veiculoRepository.save(veiculo);
 
-         URI location = ServletUriComponentsBuilder
-        .fromCurrentRequest()
-        .path("/{idVeiculo}")
-        .buildAndExpand(veiculoComCliente.getIdVeiculo())
-        .toUri();
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(veiculoSalvo.getIdVeiculo())
+                .toUri();
 
-        return ResponseEntity.created(location).body(veiculoComCliente);
-    }
+        VeiculoResponseDTO dtoResponse = VeiculoMapper.toDto(veiculoSalvo);
 
-    //metodo para atualizar veiculos
-    public ResponseEntity<?> atualizarVeiculo(@RequestBody Veiculo veiculo, @PathVariable Long idVeiculo) {
+        return ResponseEntity.created(location).body(dtoResponse);
+}
+
+
+    // Atualizar veículo
+    public ResponseEntity<VeiculoResponseDTO> atualizarVeiculo(VeiculoRequestDTO dto, Long idVeiculo) {
 
         Optional<Veiculo> veiculoSalvo = veiculoRepository.findById(idVeiculo);
-    
-        Veiculo veiculoAtualizar = veiculoSalvo.get();
 
-        veiculoAtualizar.setAno(veiculo.getAno());
-        veiculoAtualizar.setCliente(veiculo.getCliente());
-        veiculoAtualizar.setMarca(veiculo.getMarca());
-        veiculoAtualizar.setModelo(veiculo.getModelo());
-        veiculoAtualizar.setPlaca(veiculo.getPlaca());
-        veiculoAtualizar.setTipo(veiculo.getTipo());
+        if (veiculoSalvo.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
-        veiculoRepository.save(veiculoAtualizar);
+        VeiculoMapper.toUpdateEntity(dto, veiculoSalvo.get());
 
-        return ResponseEntity.ok(veiculoAtualizar);
+        Veiculo atualizado = veiculoRepository.save(veiculoSalvo.get());
+
+        VeiculoResponseDTO dtoResponse = VeiculoMapper.toDto(atualizado);
+
+        return ResponseEntity.ok(dtoResponse);
     }
-    
-    //metodo para deletar veiculos
-    @DeleteMapping
-    public ResponseEntity<?> deletarVeiculo(Long id) {
+
+    // Deletar veículo
+    public ResponseEntity<Void> deletarVeiculo(Long id) {
+
+        if (!veiculoRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
         veiculoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
+    // Buscar por ID
     @Transactional
-    public Veiculo buscarVeiculoporId(Long idVeiculo) {
-        Optional<Veiculo> veiculo = veiculoRepository.findById(idVeiculo);
-        Veiculo v = veiculo.get();
-        return v;
-    }
+    public Veiculo buscarVeiculoPorId(Long idVeiculo) {
 
+        return veiculoRepository.findById(idVeiculo).orElseThrow(() -> new RuntimeException("Veículo não encontrado"));    
+    }
 }

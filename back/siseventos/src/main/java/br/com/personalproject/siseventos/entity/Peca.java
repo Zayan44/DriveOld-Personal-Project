@@ -1,5 +1,7 @@
 package br.com.personalproject.siseventos.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,6 @@ public class Peca {
     private String nome;
     private String descricao;
     private String fabricante;
-    private double preco;
+    private BigDecimal preco;
     private int quantidadeEstoque;
 }

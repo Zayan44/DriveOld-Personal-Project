@@ -2,7 +2,6 @@ package br.com.personalproject.siseventos.mapper;
 
 import br.com.personalproject.siseventos.dto.ClienteRequestDTO;
 import br.com.personalproject.siseventos.dto.ClienteResponseDTO;
-
 import br.com.personalproject.siseventos.entity.Cliente;
 
 public class ClienteMapper {
@@ -37,6 +36,21 @@ public class ClienteMapper {
         dto.setCidade(cliente.getCidade());
 
         return dto;
+    }
+
+    public static Cliente toUpdate(ClienteRequestDTO dto, Cliente clienteExistente) {
+
+        clienteExistente.setNome(dto.getNome());
+        clienteExistente.setEmail(dto.getEmail());
+        clienteExistente.setTelefone(dto.getTelefone());
+        clienteExistente.setEndereco(dto.getEndereco());
+        clienteExistente.setCpf(dto.getCpf());
+        clienteExistente.setEstado(dto.getEstado());
+        clienteExistente.setCidade(dto.getCidade());
+        clienteExistente.setSenha(dto.getSenha());
+        clienteExistente.setBairro(dto.getBairro());
+        
+        return clienteExistente;
     }
 
 

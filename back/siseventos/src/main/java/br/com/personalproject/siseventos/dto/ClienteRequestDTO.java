@@ -24,5 +24,6 @@ public class ClienteRequestDTO {
     private String cidade;
     private String estado;
 
+    
     private List<VeiculoRequestDTO> veiculos = new ArrayList<>();
 }

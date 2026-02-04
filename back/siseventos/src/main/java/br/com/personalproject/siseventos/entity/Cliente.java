@@ -19,11 +19,12 @@ import lombok.Setter;
 public class Cliente extends Pessoa {
         
     //Atributos
-    @OneToMany(
+    @OneToMany (
         mappedBy="cliente",
         cascade = CascadeType.ALL,
         orphanRemoval=true
     )
+
     private List<Veiculo> veiculosCadastradoList = new ArrayList<>();
 
     //Metodos

@@ -1,5 +1,7 @@
 package br.com.personalproject.siseventos.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.personalproject.siseventos.entity.Mecanico;
+import br.com.personalproject.siseventos.dto.MecanicoRequestDTO;
+import br.com.personalproject.siseventos.dto.MecanicoResponseDTO;
 import br.com.personalproject.siseventos.service.MecanicoService;
 
 @RestController
@@ -23,22 +26,22 @@ public class MecanicoController {
     
 @GetMapping("/listar/mecanico")
 
-    public ResponseEntity<Iterable<Mecanico>> listarMecanico() {
-    return mecanicoService.listarMecanico();
+    public ResponseEntity<List<MecanicoResponseDTO>> listarMecanico() {
+        return mecanicoService.listarMecanico();
     }
 
     @PostMapping("/cadastrar/mecanico")
-    public ResponseEntity<?> cadastrarMecanico(@RequestBody Mecanico mecanico) {
-        return mecanicoService.cadastrarMecanico(mecanico);
+    public ResponseEntity<MecanicoResponseDTO> cadastrarMecanico(@RequestBody MecanicoRequestDTO dto) {
+        return mecanicoService.cadastrarMecanico(dto);
     }
 
     @PutMapping("/atualizar/mecanico/{id}")
-    public ResponseEntity<?> atualizarMecanico(@RequestBody Mecanico mecanico, @PathVariable Long id) {
-        return mecanicoService.atualizarMecanico(mecanico,id);
+    public ResponseEntity<MecanicoResponseDTO> atualizarMecanico(@RequestBody MecanicoRequestDTO dto, @PathVariable Long id) {
+        return mecanicoService.atualizarMecanico(dto, id);
     }
 
     @DeleteMapping("/deletar/mecanico/{id}")
-    public ResponseEntity<?> deletarMecanico(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarMecanico(@PathVariable Long id) {
         return mecanicoService.deletarMecanico(id);
     }
 }

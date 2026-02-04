@@ -1,5 +1,7 @@
 package br.com.personalproject.siseventos.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,37 +11,45 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.personalproject.siseventos.entity.Peca;
+import br.com.personalproject.siseventos.dto.PecaRequestDTO;
+import br.com.personalproject.siseventos.dto.PecaResponseDTO;
 import br.com.personalproject.siseventos.service.PecaService;
 
 @RestController
+@RequestMapping("/pecas")
 @CrossOrigin("http://localhost:5173")
 public class PecaController {
 
     @Autowired
-    PecaService PecaService;
-    
-    @GetMapping("/listar/peca")
+    private PecaService pecaService;
 
-    public ResponseEntity<Iterable<Peca>> listarPeca() {
-    return PecaService.listarPeca();
+    // Listar peças
+    @GetMapping
+    public ResponseEntity<List<PecaResponseDTO>> listarPeca() {
+        return pecaService.listarPeca();
     }
 
-    @PostMapping("/cadastrar/peca")
-    public ResponseEntity<?> cadastrarPeca(@RequestBody Peca peca) {
-        return PecaService.cadastrarPeca(peca);
+    // Cadastrar peça
+    @PostMapping
+    public ResponseEntity<PecaResponseDTO> cadastrarPeca(@RequestBody PecaRequestDTO dto) {
+        return pecaService.cadastrarPeca(dto);
     }
 
-    @PutMapping("/atualizar/peca/{id}")
-    public ResponseEntity<?> atualizarPeca(@RequestBody Peca peca, @PathVariable Long id) {
-        return PecaService.atualizarPeca(peca,id);
+    // Atualizar peça
+    @PutMapping("/{id}")
+    public ResponseEntity<PecaResponseDTO> atualizarPeca(
+            @RequestBody PecaRequestDTO dto,
+            @PathVariable Long id
+    ) {
+        return pecaService.atualizarPeca(dto, id);
     }
 
-    @DeleteMapping("/deletar/peca/{id}")
-    public ResponseEntity<?> deletarPeca(@PathVariable Long id) {
-        return PecaService.deletarPeca(id);
+    // Deletar peça
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarPeca(@PathVariable Long id) {
+        return pecaService.deletarPeca(id);
     }
-
 }

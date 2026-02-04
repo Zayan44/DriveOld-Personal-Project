@@ -28,9 +28,9 @@ public class OrcamentoController {
     return ResponseEntity.ok(orcamentoService.listarOrcamento());
     }
 
-    @PostMapping("/cadastrar/orcamento")
-    public ResponseEntity<?> cadastrarOrcamento(@RequestBody OrcamentoRequestDTO orcamento, @PathVariable Long idVeiculo) {
-        return orcamentoService.criarOrcamento(orcamento);
+    @PostMapping("/cadastrar/orcamento/{idVeiculo}")
+    public ResponseEntity<OrcamentoResponseDTO> cadastrarOrcamento(@RequestBody OrcamentoRequestDTO orcamento, @PathVariable Long idVeiculo) {
+        return orcamentoService.criarOrcamento(orcamento, idVeiculo);
     }
     
     @DeleteMapping("/deletar/Orcamento/{id}")

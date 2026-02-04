@@ -1,6 +1,8 @@
 package br.com.personalproject.siseventos.entity;
 
+import br.com.personalproject.siseventos.enumerated.TipoVeiculo;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import jakarta.persistence.EnumType;
 
 @Entity
 @Getter
@@ -19,7 +21,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Veiculo {
     
-
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +30,10 @@ public class Veiculo {
     @JoinColumn(name = "fk_cliente_id",nullable=false)
     private Cliente cliente;
 
+    @Enumerated(EnumType.STRING)
+    private TipoVeiculo tipo;  //caminhao, carro, moto
+
     private String proprietario;
-    private String tipo;  //caminhao, carro, moto
     private String placa;
     private String marca;
     private String modelo;

@@ -13,8 +13,9 @@ import br.com.personalproject.siseventos.dto.OrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.OrcamentoResponseDTO;
 import br.com.personalproject.siseventos.entity.Orcamento;
 import br.com.personalproject.siseventos.entity.Veiculo;
-import br.com.personalproject.siseventos.mapper.MapperOrcamento;
+import br.com.personalproject.siseventos.mapper.OrcamentoMapper;
 import br.com.personalproject.siseventos.repository.OrcamentoRepository;
+
 
 @Service
 public class OrcamentoService {
@@ -29,33 +30,35 @@ public class OrcamentoService {
         
         return orcamentoRepository.findAll()
         .stream()
-        .map(MapperOrcamento::toDto)
+        .map(OrcamentoMapper::toDto)
         .toList();
     }
 
     // Metodo para cadastrar orcamento
-    public ResponseEntity<?> criarOrcamento(OrcamentoRequestDTO dto) {
+    public ResponseEntity<OrcamentoResponseDTO> criarOrcamento(OrcamentoRequestDTO dto, Long idVeiculo) {
 
-        Veiculo veiculo = veiculoService.buscarVeiculoporId(dto.getIdVeiculo());
-        Orcamento orcamento = MapperOrcamento.toEntity(dto,veiculo);
+        Veiculo veiculo = veiculoService.buscarVeiculoPorId(dto.getIdVeiculo());
+
+        Orcamento orcamento = OrcamentoMapper.toEntity(dto,veiculo);
+
         orcamentoRepository.save(orcamento);
+
+        OrcamentoResponseDTO dtoResponse = OrcamentoMapper.toDto(orcamento);
 
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
-        .buildAndExpand(orcamento.getIdOrcamento())
+        .buildAndExpand(dtoResponse.getIdOrcamento())
         .toUri();
 
-        return ResponseEntity.created(location).body(orcamento);
+        return ResponseEntity.created(location).body(dtoResponse);
     }
 
     // Metodo para deletar orcamento
-        public ResponseEntity<?> deletarOrcamento(@PathVariable Long idOrcamento) {
+    public ResponseEntity<?> deletarOrcamento(@PathVariable Long idOrcamento) {
 
         orcamentoRepository.deleteById(idOrcamento);
 
         return ResponseEntity.noContent().build();
     }
-
-
 }

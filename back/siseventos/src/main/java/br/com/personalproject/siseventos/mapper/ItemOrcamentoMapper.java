@@ -3,12 +3,12 @@ package br.com.personalproject.siseventos.mapper;
 import br.com.personalproject.siseventos.association.ItemOrcamento;
 import br.com.personalproject.siseventos.dto.ItemOrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.ItemOrcamentoResponseDTO;
-import br.com.personalproject.siseventos.enumerated.TipoItemOrcamento;
 import br.com.personalproject.siseventos.entity.Servico;
+import br.com.personalproject.siseventos.enumerated.TipoItemOrcamento;
 import br.com.personalproject.siseventos.service.PecaService;
 import br.com.personalproject.siseventos.service.ServicoService;
 
-public class MapperItemOrcamento {
+public class ItemOrcamentoMapper {
 
     public static ItemOrcamento toEntity(ItemOrcamentoRequestDTO itemOrcamentoRequestDTO) {
 
@@ -24,8 +24,8 @@ public class MapperItemOrcamento {
             itemOrcamento.setServico(servico);
             itemOrcamento.setTipo(itemOrcamentoRequestDTO.getTipo());  
             itemOrcamento.setQuantidade(itemOrcamentoRequestDTO.getQuantidade());
-        } 
-        
+        }
+         
         else {
             
             itemOrcamento.setPeca(pecaService.buscarPecaporId(itemOrcamentoRequestDTO.getIdReferencia()));
@@ -55,8 +55,4 @@ public class MapperItemOrcamento {
 
         return itemOrcamentoResponseDTO;
     }
-
-
-
-
 }

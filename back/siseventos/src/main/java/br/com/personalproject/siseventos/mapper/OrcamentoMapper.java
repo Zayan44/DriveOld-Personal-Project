@@ -5,7 +5,7 @@ import br.com.personalproject.siseventos.entity.Orcamento;
 import br.com.personalproject.siseventos.entity.Veiculo;
 
 
-public class MapperOrcamento {
+public class OrcamentoMapper {
 
 
     public static OrcamentoResponseDTO toDto(Orcamento orcamento) {

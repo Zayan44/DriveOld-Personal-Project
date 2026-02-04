@@ -1,5 +1,7 @@
 package br.com.personalproject.siseventos.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.personalproject.siseventos.entity.Veiculo;
+import br.com.personalproject.siseventos.dto.VeiculoRequestDTO;
+import br.com.personalproject.siseventos.dto.VeiculoResponseDTO;
 import br.com.personalproject.siseventos.service.VeiculoService;
 
 @RestController
@@ -23,22 +26,22 @@ public class VeiculoController {
     
 @GetMapping("/listar/Veiculo")
 
-    public ResponseEntity<Iterable<Veiculo>> listarVeiculo() {
+    public ResponseEntity<List<VeiculoResponseDTO>> listarVeiculo() {
     return veiculoService.listarVeiculo();
     }
 
     @PostMapping("/cadastrar/Veiculo")
-    public ResponseEntity<?> cadastrarVeiculo(@RequestBody Veiculo veiculo, @PathVariable Long idCliente) {
-        return veiculoService.cadastrarVeiculo(veiculo,idCliente);
+    public ResponseEntity<VeiculoResponseDTO> cadastrarVeiculo(@RequestBody VeiculoRequestDTO dto, @PathVariable Long idCliente) {
+        return veiculoService.cadastrarVeiculo(dto,idCliente);
     }
 
     @PutMapping("/atualizar/Veiculo/{id}")
-    public ResponseEntity<?> atualizarVeiculo(@RequestBody Veiculo veiculo, @PathVariable Long id) {
+    public ResponseEntity<?> atualizarVeiculo(@RequestBody VeiculoRequestDTO veiculo, @PathVariable Long id) {
         return veiculoService.atualizarVeiculo(veiculo,id);
     }
 
     @DeleteMapping("/deletar/Veiculo/{id}")
-    public ResponseEntity<?> deletarVeiculo(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarVeiculo(@PathVariable Long id) {
         return veiculoService.deletarVeiculo(id);
     }
 

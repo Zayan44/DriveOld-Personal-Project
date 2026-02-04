@@ -1,7 +1,7 @@
 package br.com.personalproject.siseventos.enumerated;
 
-import lombok.Getter;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
 @Getter

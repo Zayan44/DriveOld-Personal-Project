@@ -73,8 +73,9 @@ src/main/java/br/com/personalproject/siseventos/
 
 ## 🛠️ Instalação
 
-### Pré Requisitos
+### Tecnologias Utilizadas 
 - Java 25
+- PostgreSQL 16.11
 ---
 
 ## 🤝 Contribua

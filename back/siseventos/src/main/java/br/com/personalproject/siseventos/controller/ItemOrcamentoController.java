@@ -13,7 +13,7 @@ import br.com.personalproject.siseventos.dto.ItemOrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.ItemOrcamentoResponseDTO;
 import br.com.personalproject.siseventos.service.ItemOrcamentoService;
 
-@RequestMapping("/item-orcamento")
+@RequestMapping("/api/item")
 @RestController
 public class ItemOrcamentoController {
 

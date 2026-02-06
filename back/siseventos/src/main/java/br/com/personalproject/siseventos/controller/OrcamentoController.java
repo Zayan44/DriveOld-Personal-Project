@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.personalproject.siseventos.dto.OrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.OrcamentoResponseDTO;
 import br.com.personalproject.siseventos.service.OrcamentoService;
 
+@RequestMapping("/api/orcamento")
 @RestController
 @CrossOrigin("http://localhost:5173")
 public class OrcamentoController {

@@ -21,7 +21,7 @@ import br.com.personalproject.siseventos.dto.PecaResponseDTO;
 import br.com.personalproject.siseventos.service.PecaService;
 
 @RestController
-@RequestMapping("/pecas")
+@RequestMapping("/api/peca")
 @CrossOrigin("http://localhost:5173")
 public class PecaController {
 

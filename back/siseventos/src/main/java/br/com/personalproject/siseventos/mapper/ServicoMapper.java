@@ -19,7 +19,7 @@ public class ServicoMapper {
 
     public static ServicoResponseDTO toDto(Servico entity) {
         ServicoResponseDTO dto = new ServicoResponseDTO();
-        dto.setIdServico(entity.getIdServico());
+        dto.setIdServico(entity.getId());
         dto.setNome(entity.getNome());
         dto.setDescricao(entity.getDescricao());
         dto.setPreco(entity.getPreco());

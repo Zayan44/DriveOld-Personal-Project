@@ -25,7 +25,6 @@ public class VeiculoService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-// Listar veículos
     public List<VeiculoResponseDTO> listarVeiculo() {
 
         List<VeiculoResponseDTO> veiculos = veiculoRepository.findAll()
@@ -38,7 +37,6 @@ public class VeiculoService {
         return response;
     }
 
-// Cadastrar veiculos
     public VeiculoResponseDTO cadastrarVeiculo(VeiculoRequestDTO dto, Long idCliente) {
 
         Optional<Cliente> clienteEncontrado = clienteRepository.findById(idCliente);
@@ -54,7 +52,6 @@ public class VeiculoService {
         return response;
     }
 
-    // Atualizar veículo
     public VeiculoResponseDTO atualizarVeiculo(VeiculoRequestDTO dto, Long idVeiculo) {
 
         Optional<Veiculo> veiculoEncontrado = veiculoRepository.findById(idVeiculo);
@@ -74,12 +71,10 @@ public class VeiculoService {
         return response;
     }
 
-    // Deletar veículo
     public void deletarVeiculo(Long id) {
         veiculoRepository.deleteById(id);
     }
 
-    // Buscar por ID
     @Transactional
     public Veiculo buscarVeiculoPorId(Long idVeiculo) {
 

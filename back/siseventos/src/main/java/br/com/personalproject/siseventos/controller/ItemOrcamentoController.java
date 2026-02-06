@@ -1,5 +1,7 @@
 package br.com.personalproject.siseventos.controller;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.personalproject.siseventos.dto.ItemOrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.ItemOrcamentoResponseDTO;
@@ -22,11 +25,20 @@ public class ItemOrcamentoController {
     
     @PostMapping("/cadastrar")
     public ResponseEntity<ItemOrcamentoResponseDTO> cadastrarItemOrcamento(@RequestBody ItemOrcamentoRequestDTO dto) {
-        return itemOrcamentoService.criarItemOrcamento(dto);
+        ItemOrcamentoResponseDTO response = itemOrcamentoService.criarItemOrcamento(dto);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(response);
     }
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarItemOrcamento(@PathVariable Long id) {
-        return itemOrcamentoService.deletarItemOrcamento(id);
+        itemOrcamentoService.deletarItemOrcamento(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -18,7 +18,6 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    //Metodo para listar clientes
     @Transactional(readOnly = true)
     public List<ClienteResponseDTO> listarCliente() {
 
@@ -30,9 +29,8 @@ public class ClienteService {
             .toList();
 
         return response;
-}
+    }
 
-    //Metodo para cadastrar Clientes
     @Transactional
     public ClienteResponseDTO cadastrarCliente(ClienteRequestDTO dto) {
         Cliente cliente = ClienteMapper.toEntity(dto);
@@ -41,7 +39,6 @@ public class ClienteService {
         return response;
     }
 
-    //Metodo para atualizar Clientes
     @Transactional
     public ClienteResponseDTO atualizarCliente(ClienteRequestDTO dto, Long id) {
         Cliente cliente = ClienteMapper.toEntity(dto);
@@ -51,7 +48,6 @@ public class ClienteService {
         return response;
     }
     
-    //Metodo para deletar Clientes
     @Transactional
     public void deletarCliente(Long id) {
         clienteRepository.deleteById(id);

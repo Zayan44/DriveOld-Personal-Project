@@ -13,7 +13,7 @@ public class OrcamentoMapper {
         OrcamentoResponseDTO dto = new OrcamentoResponseDTO();
 
         dto.setIdOrcamento(orcamento.getIdOrcamento());
-        dto.setIdVeiculo(orcamento.getVeiculo().getIdVeiculo());
+        dto.setIdVeiculo(orcamento.getVeiculo().getId());
         dto.setPlaca(orcamento.getVeiculo().getPlaca());
         dto.setModelo(orcamento.getVeiculo().getModelo());
         dto.setStatus(orcamento.getStatus());

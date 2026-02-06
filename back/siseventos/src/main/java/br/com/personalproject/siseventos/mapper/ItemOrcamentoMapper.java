@@ -18,7 +18,7 @@ public class ItemOrcamentoMapper {
 
         if (itemOrcamentoRequestDTO.getTipo().equals(TipoItemOrcamento.SERVICO)) {
             
-            Servico servico = servicoService.buscarServicoporId(itemOrcamentoRequestDTO.getIdReferencia());
+            Servico servico = servicoService.buscarServicoPorId(itemOrcamentoRequestDTO.getIdReferencia());
 
             itemOrcamento.setServico(servico);
             itemOrcamento.setTipo(itemOrcamentoRequestDTO.getTipo());  
@@ -26,7 +26,7 @@ public class ItemOrcamentoMapper {
         }
 
         else {
-            itemOrcamento.setPeca(pecaService.buscarPecaporId(itemOrcamentoRequestDTO.getIdReferencia()));
+            itemOrcamento.setPeca(pecaService.buscarPecaPorId(itemOrcamentoRequestDTO.getIdReferencia()));
             itemOrcamento.setTipo(itemOrcamentoRequestDTO.getTipo());  
             itemOrcamento.setQuantidade(itemOrcamentoRequestDTO.getQuantidade());
         }
@@ -39,11 +39,11 @@ public class ItemOrcamentoMapper {
         ItemOrcamentoResponseDTO itemOrcamentoResponseDTO = new ItemOrcamentoResponseDTO();
 
         if (itemOrcamento.getTipo().equals(TipoItemOrcamento.SERVICO)) {
-            itemOrcamentoResponseDTO.setIdReferencia(itemOrcamento.getServico().getIdServico());
+            itemOrcamentoResponseDTO.setIdReferencia(itemOrcamento.getServico().getId());
         } 
         
         else {
-            itemOrcamentoResponseDTO.setIdReferencia(itemOrcamento.getPeca().getIdPeca());
+            itemOrcamentoResponseDTO.setIdReferencia(itemOrcamento.getPeca().getId());
         }
 
         itemOrcamentoResponseDTO.setId(itemOrcamento.getIdItemOrcamento());

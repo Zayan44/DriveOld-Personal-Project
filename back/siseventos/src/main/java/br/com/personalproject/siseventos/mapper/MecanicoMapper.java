@@ -18,6 +18,7 @@ public class MecanicoMapper {
         entity.setEstado(dto.getEstado());
         entity.setCidade(dto.getCidade());
         entity.setBairro(dto.getBairro());
+        entity.setEspecialidade(dto.getEspecialidade());
 
         return entity;
     }
@@ -26,6 +27,7 @@ public class MecanicoMapper {
 
         MecanicoResponseDTO dto = new MecanicoResponseDTO();
 
+        dto.setId(entity.getId());
         dto.setNome(entity.getNome());
         dto.setEmail(entity.getEmail());
         dto.setTelefone(entity.getTelefone());
@@ -33,6 +35,7 @@ public class MecanicoMapper {
         dto.setCpf(entity.getCpf());
         dto.setEstado(entity.getEstado());
         dto.setCidade(entity.getCidade());
+        dto.setEspecialidade(entity.getEspecialidade());
 
         return dto;
     }
@@ -47,7 +50,8 @@ public class MecanicoMapper {
         entity.setEstado(dto.getEstado());
         entity.setCidade(dto.getCidade());
         entity.setBairro(dto.getBairro());
-        
+        entity.setEspecialidade(dto.getEspecialidade());
+
         return entity;
     }
 }

@@ -1,8 +1,5 @@
 package br.com.personalproject.siseventos.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +19,5 @@ public class ClienteRequestDTO {
     private String endereco;
     private String bairro;
     private String cidade;
-    private String estado;
-    
-    private List<VeiculoRequestDTO> veiculos = new ArrayList<>();
+    private String estado;    
 }

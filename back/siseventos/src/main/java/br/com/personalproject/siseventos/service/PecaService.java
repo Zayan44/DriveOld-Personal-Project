@@ -18,7 +18,6 @@ public class PecaService {
     @Autowired
     private PecaRepository pecaRepository;
 
-    // Listar peças
     @Transactional(readOnly = true)
     public List<PecaResponseDTO> listarPeca() {
 
@@ -30,7 +29,6 @@ public class PecaService {
         return response;
     }
 
-    // Cadastrar peça
     @Transactional
     public PecaResponseDTO cadastrarPeca(PecaRequestDTO dto) {
         Peca peca = PecaMapper.toEntity(dto);
@@ -39,7 +37,6 @@ public class PecaService {
         return response;
     }
 
-    // Atualizar peça
     @Transactional
     public PecaResponseDTO atualizarPeca(PecaRequestDTO dto, Long id) {
         Peca pecaEncontrada = pecaRepository.findById(id).orElseThrow(() -> new RuntimeException("Peça não encontrada"));
@@ -49,17 +46,15 @@ public class PecaService {
         return response;
     }
 
-    // Deletar peça
     @Transactional
     public void deletarPeca(Long id) {
         pecaRepository.deleteById(id);
     }
 
-    // Buscar por id
     @Transactional(readOnly = true)
-    public PecaResponseDTO buscarPecaPorId(Long id) {
+    public Peca buscarPecaPorId(Long id) {
         Peca peca = pecaRepository.findById(id).orElseThrow(() -> new RuntimeException("Peça não encontrada"));
-        return PecaMapper.toDto(peca);
+        return peca;
     }
 
 }

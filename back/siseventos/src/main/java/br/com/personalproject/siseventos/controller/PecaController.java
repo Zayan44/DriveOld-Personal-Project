@@ -29,14 +29,14 @@ public class PecaController {
     private PecaService pecaService;
 
     // Listar peças
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<PecaResponseDTO>> listarPeca() {
         List<PecaResponseDTO> response = pecaService.listarPeca();
         return ResponseEntity.ok(response);
     }
 
     // Cadastrar peça
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity<PecaResponseDTO> cadastrarPeca(@RequestBody PecaRequestDTO dto) {
         PecaResponseDTO response = pecaService.cadastrarPeca(dto);
 
@@ -49,15 +49,13 @@ public class PecaController {
         return ResponseEntity.created(location).body(response);
     }
 
-    // Atualizar peça
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<PecaResponseDTO> atualizarPeca(@RequestBody PecaRequestDTO dto, @PathVariable Long id) {
         PecaResponseDTO response = pecaService.atualizarPeca(dto, id);
         return ResponseEntity.ok(response);
     }
 
-    // Deletar peça
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarPeca(@PathVariable Long id) {
         pecaService.deletarPeca(id);
         return ResponseEntity.noContent().build();

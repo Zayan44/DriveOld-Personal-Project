@@ -28,8 +28,7 @@ public class MecanicoController {
     @Autowired
     MecanicoService mecanicoService;
     
-@GetMapping("/listar")
-
+    @GetMapping("/listar")
     public ResponseEntity<List<MecanicoResponseDTO>> listarMecanico() {
         List<MecanicoResponseDTO> response = mecanicoService.listarMecanico();
         return ResponseEntity.ok(response);

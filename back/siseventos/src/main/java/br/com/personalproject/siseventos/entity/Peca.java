@@ -2,12 +2,12 @@ package br.com.personalproject.siseventos.entity;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,7 @@ public class Peca {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     @Column(name = "id")
-    private Long idPeca;
+    private Long id;
 
     @Column(name = "nome")
     private String nome;
@@ -41,5 +41,5 @@ public class Peca {
     private BigDecimal preco;
     
     @Column(name = "quantidade")
-    private int quantidadeEstoque;
+    private int quantidade;
 }

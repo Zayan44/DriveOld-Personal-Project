@@ -23,17 +23,19 @@ public class ClienteMapper {
         return cliente;
     }
 
-    public static ClienteResponseDTO toDto(Cliente cliente) {
+    public static ClienteResponseDTO toDto(Cliente entity) {
 
         ClienteResponseDTO dto = new ClienteResponseDTO();
 
-        dto.setNome(cliente.getNome());
-        dto.setEmail(cliente.getEmail());
-        dto.setTelefone(cliente.getTelefone());
-        dto.setEndereco(cliente.getEndereco());
-        dto.setCpf(cliente.getCpf());
-        dto.setEstado(cliente.getEstado());
-        dto.setCidade(cliente.getCidade());
+        dto.setId(entity.getId());
+        dto.setNome(entity.getNome());
+        dto.setEmail(entity.getEmail());
+        dto.setTelefone(entity.getTelefone());
+        dto.setEndereco(entity.getEndereco());
+        dto.setCpf(entity.getCpf());
+        dto.setEstado(entity.getEstado());
+        dto.setCidade(entity.getCidade());
+        dto.setBairro(entity.getBairro());
 
         return dto;
     }

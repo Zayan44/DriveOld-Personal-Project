@@ -18,7 +18,6 @@ public class MecanicoService {
     @Autowired
     private MecanicoRepository mecanicoRepository;
 
-    // Método para listar mecânicos
     @Transactional(readOnly = true)
     public List<MecanicoResponseDTO> listarMecanico() {
 
@@ -32,7 +31,6 @@ public class MecanicoService {
         return response;
     }
 
-    // Método para cadastrar mecânicos
     @Transactional
     public MecanicoResponseDTO cadastrarMecanico(MecanicoRequestDTO dto) {
         Mecanico mecanico = MecanicoMapper.toEntity(dto);
@@ -41,7 +39,6 @@ public class MecanicoService {
         return response;
     }
 
-    //Metodo para atualizar mecanicos
     @Transactional
     public MecanicoResponseDTO atualizarMecanico(MecanicoRequestDTO dto, Long id) {
         Mecanico mecanico = MecanicoMapper.toEntity(dto);
@@ -51,7 +48,6 @@ public class MecanicoService {
         return response;
     }
 
-    // Método para deletar mecânicos
     @Transactional
     public void deletarMecanico(Long id) {
         mecanicoRepository.deleteById(id);

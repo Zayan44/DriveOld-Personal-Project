@@ -23,6 +23,7 @@ public class VeiculoMapper {
 
         VeiculoResponseDTO dto = new VeiculoResponseDTO();
 
+        dto.setId(entity.getId());
         dto.setTipo(entity.getTipo());
         dto.setPlaca(entity.getPlaca());
         dto.setMarca(entity.getMarca());
@@ -40,7 +41,7 @@ public class VeiculoMapper {
         entity.setMarca(dto.getMarca());
         entity.setModelo(dto.getModelo());
         entity.setAno(dto.getAno());
-
+        
         return entity;
     }
 }

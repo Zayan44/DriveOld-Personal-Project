@@ -34,10 +34,10 @@ public class VeiculoController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/cadastrar")
-    public ResponseEntity<VeiculoResponseDTO> cadastrarVeiculo(@RequestBody VeiculoRequestDTO dto, @PathVariable Long idCliente) {
+    @PostMapping("/cadastrar/{id}")
+    public ResponseEntity<VeiculoResponseDTO> cadastrarVeiculo(@RequestBody VeiculoRequestDTO dto, @PathVariable Long id) {
         
-        VeiculoResponseDTO response = veiculoService.cadastrarVeiculo(dto,idCliente);
+        VeiculoResponseDTO response = veiculoService.cadastrarVeiculo(dto,id);
        
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

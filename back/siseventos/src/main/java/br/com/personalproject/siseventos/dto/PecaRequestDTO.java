@@ -17,5 +17,5 @@ public class PecaRequestDTO {
     private String descricao;
     private String fabricante;
     private BigDecimal preco;
-    private int quantidadeEstoque;
+    private int quantidade;
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.personalproject.siseventos.dto.ClienteRequestDTO;
 import br.com.personalproject.siseventos.dto.ClienteResponseDTO;
 import br.com.personalproject.siseventos.entity.Cliente;
+import br.com.personalproject.siseventos.entity.Veiculo;
 import br.com.personalproject.siseventos.mapper.ClienteMapper;
 import br.com.personalproject.siseventos.repository.ClienteRepository;
 
@@ -41,15 +42,31 @@ public class ClienteService {
 
     @Transactional
     public ClienteResponseDTO atualizarCliente(ClienteRequestDTO dto, Long id) {
-        Cliente cliente = ClienteMapper.toEntity(dto);
-        cliente.setId(id);
-        Cliente clienteAtualizado = clienteRepository.save(cliente);
-        ClienteResponseDTO response = ClienteMapper.toDto(clienteAtualizado);
-        return response;
+
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        cliente = ClienteMapper.toUpdate(cliente, dto);
+
+        cliente = clienteRepository.save(cliente);
+
+        return ClienteMapper.toDto(cliente);
     }
     
     @Transactional
     public void deletarCliente(Long id) {
         clienteRepository.deleteById(id);
     }
+
+    @Transactional
+    public void adicionarVeiculo(Long idCliente, Veiculo veiculo) {
+
+    Cliente cliente = clienteRepository.findById(idCliente)
+        .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+    veiculo.setCliente(cliente);
+    cliente.getVeiculosCadastradoList().add(veiculo);
+    clienteRepository.save(cliente);
+}
+
 }

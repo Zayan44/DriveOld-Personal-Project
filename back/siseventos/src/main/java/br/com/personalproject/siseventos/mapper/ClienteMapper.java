@@ -37,23 +37,29 @@ public class ClienteMapper {
         dto.setCidade(entity.getCidade());
         dto.setBairro(entity.getBairro());
 
+        if(entity.getVeiculosCadastradoList() != null) {
+            dto.setVeiculos(
+                entity.getVeiculosCadastradoList()
+                .stream()
+                .map(VeiculoMapper::toDto)
+                .toList()
+            );
+        }
+
         return dto;
     }
 
-    public static Cliente toUpdate(ClienteRequestDTO dto, Cliente clienteExistente) {
+    public static Cliente toUpdate(Cliente entity,ClienteRequestDTO dto) {
 
-        clienteExistente.setNome(dto.getNome());
-        clienteExistente.setEmail(dto.getEmail());
-        clienteExistente.setTelefone(dto.getTelefone());
-        clienteExistente.setEndereco(dto.getEndereco());
-        clienteExistente.setCpf(dto.getCpf());
-        clienteExistente.setEstado(dto.getEstado());
-        clienteExistente.setCidade(dto.getCidade());
-        clienteExistente.setSenha(dto.getSenha());
-        clienteExistente.setBairro(dto.getBairro());
+        entity.setNome(dto.getNome());
+        entity.setEmail(dto.getEmail());
+        entity.setTelefone(dto.getTelefone());
+        entity.setEndereco(dto.getEndereco());
+        entity.setEstado(dto.getEstado());
+        entity.setCidade(dto.getCidade());
+        entity.setBairro(dto.getBairro());
         
-        return clienteExistente;
+        return entity;
     }
-
 
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -22,7 +21,6 @@ import lombok.Setter;
 public class Cliente extends Pessoa {
         
     //Atributos
-    @Column(name = "veiculos_cliente")
     @OneToMany (
         mappedBy="cliente",
         cascade = CascadeType.ALL,
@@ -31,5 +29,8 @@ public class Cliente extends Pessoa {
     private List<Veiculo> veiculosCadastradoList = new ArrayList<>();
 
     //Metodos
-    
+    public void adicionarVeiculo(Veiculo veiculo) {
+        veiculosCadastradoList.add(veiculo);
+        veiculo.setCliente(this);
+    }
 }

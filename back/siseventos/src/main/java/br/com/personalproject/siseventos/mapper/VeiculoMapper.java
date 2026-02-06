@@ -19,26 +19,28 @@ public class VeiculoMapper {
         return entity;
     }
 
-    public static VeiculoResponseDTO toDto(Veiculo veiculo) {
+    public static VeiculoResponseDTO toDto(Veiculo entity) {
 
         VeiculoResponseDTO dto = new VeiculoResponseDTO();
 
-        dto.setTipo(veiculo.getTipo());
-        dto.setPlaca(veiculo.getPlaca());
-        dto.setMarca(veiculo.getMarca());
-        dto.setModelo(veiculo.getModelo());
-        dto.setAno(veiculo.getAno());
-        dto.setIdCliente(veiculo.getCliente().getIdPessoa());
+        dto.setTipo(entity.getTipo());
+        dto.setPlaca(entity.getPlaca());
+        dto.setMarca(entity.getMarca());
+        dto.setModelo(entity.getModelo());
+        dto.setAno(entity.getAno());
+        dto.setIdCliente(entity.getCliente().getId());
         
         return dto;
     }
 
-    public static void toUpdateEntity(VeiculoRequestDTO dto, Veiculo veiculo) {
+    public static Veiculo toUpdateEntity(VeiculoRequestDTO dto, Veiculo entity) {
 
-        veiculo.setTipo(dto.getTipo());
-        veiculo.setPlaca(dto.getPlaca());
-        veiculo.setMarca(dto.getMarca());
-        veiculo.setModelo(dto.getModelo());
-        veiculo.setAno(dto.getAno());
+        entity.setTipo(dto.getTipo());
+        entity.setPlaca(dto.getPlaca());
+        entity.setMarca(dto.getMarca());
+        entity.setModelo(dto.getModelo());
+        entity.setAno(dto.getAno());
+
+        return entity;
     }
 }

@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class VeiculoResponseDTO {
 
+    private Long id;
     private TipoVeiculo tipo;
     private String placa;
     private String marca;

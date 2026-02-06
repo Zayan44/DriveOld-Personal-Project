@@ -1,5 +1,6 @@
 package br.com.personalproject.siseventos.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.personalproject.siseventos.dto.ClienteRequestDTO;
 import br.com.personalproject.siseventos.dto.ClienteResponseDTO;
@@ -28,22 +30,34 @@ ClienteService clienteService;
 
 
     public ResponseEntity<List<ClienteResponseDTO>> listarCliente() {
-    return clienteService.listarCliente();
+    List<ClienteResponseDTO> response = clienteService.listarCliente();
+    return ResponseEntity.ok(response);
     }
 
     @PostMapping("/cadastrar/cliente")
     public ResponseEntity<ClienteResponseDTO> cadastrarCliente(@RequestBody ClienteRequestDTO dto) {
-        return clienteService.cadastrarCliente(dto);
+        
+        ClienteResponseDTO response = clienteService.cadastrarCliente(dto);
+
+        URI location = ServletUriComponentsBuilder
+        .fromCurrentRequest()
+        .path("/{id}")
+        .buildAndExpand(response.getId())
+        .toUri();
+
+        return ResponseEntity.created(location).body(response);
     }
 
     @PutMapping("/atualizar/cliente/{id}")
     public ResponseEntity<ClienteResponseDTO> atualizarCliente(@RequestBody ClienteRequestDTO dto, @PathVariable Long id) {
-        return clienteService.atualizarCliente(dto, id);
-    }
+         ClienteResponseDTO response = clienteService.atualizarCliente(dto, id);
+         return ResponseEntity.ok(response);
+    }   
 
     @DeleteMapping("/deletar/cliente/{id}")
     public ResponseEntity<ClienteResponseDTO> deletarCliente(@PathVariable Long id) {
-        return clienteService.deletarCliente(id);
+        clienteService.deletarCliente(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -1,13 +1,10 @@
 package br.com.personalproject.siseventos.service;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.personalproject.siseventos.dto.MecanicoRequestDTO;
 import br.com.personalproject.siseventos.dto.MecanicoResponseDTO;
@@ -23,57 +20,40 @@ public class MecanicoService {
 
     // Método para listar mecânicos
     @Transactional(readOnly = true)
-    public ResponseEntity<List<MecanicoResponseDTO>> listarMecanico() {
+    public List<MecanicoResponseDTO> listarMecanico() {
 
         List<Mecanico> mecanicos = mecanicoRepository.findAll();
 
-        List<MecanicoResponseDTO> dto = mecanicos
+        List<MecanicoResponseDTO> response = mecanicos
                 .stream()
                 .map(MecanicoMapper::toDto)
                 .toList();
 
-        return ResponseEntity.ok(dto);
+        return response;
     }
 
     // Método para cadastrar mecânicos
     @Transactional
-    public ResponseEntity<MecanicoResponseDTO> cadastrarMecanico(MecanicoRequestDTO dto) {
-
+    public MecanicoResponseDTO cadastrarMecanico(MecanicoRequestDTO dto) {
         Mecanico mecanico = MecanicoMapper.toEntity(dto);
-
         Mecanico mecanicoSalvo = mecanicoRepository.save(mecanico);
-
-        MecanicoResponseDTO dtoResponse = MecanicoMapper.toDto(mecanicoSalvo);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(mecanicoSalvo.getIdPessoa())
-                .toUri();
-
-        return ResponseEntity.created(location).body(dtoResponse);
+        MecanicoResponseDTO response = MecanicoMapper.toDto(mecanicoSalvo);
+        return response;
     }
 
+    //Metodo para atualizar mecanicos
     @Transactional
-    public ResponseEntity<MecanicoResponseDTO> atualizarMecanico(MecanicoRequestDTO dto, Long id) {
-
-    Mecanico mecanico = MecanicoMapper.toEntity(dto);
-
-    mecanico.setIdPessoa(id);
-
-    Mecanico mecanicoAtualizado = mecanicoRepository.save(mecanico);
-
-    MecanicoResponseDTO dtoResponse = MecanicoMapper.toDto(mecanicoAtualizado);
-
-    return ResponseEntity.ok(dtoResponse);
+    public MecanicoResponseDTO atualizarMecanico(MecanicoRequestDTO dto, Long id) {
+        Mecanico mecanico = MecanicoMapper.toEntity(dto);
+        mecanico.setId(id);
+        Mecanico mecanicoAtualizado = mecanicoRepository.save(mecanico);
+        MecanicoResponseDTO response = MecanicoMapper.toDto(mecanicoAtualizado);
+        return response;
     }
 
     // Método para deletar mecânicos
     @Transactional
-    public ResponseEntity<Void> deletarMecanico(Long id) {
-
+    public void deletarMecanico(Long id) {
         mecanicoRepository.deleteById(id);
-
-        return ResponseEntity.noContent().build();
     }
 }

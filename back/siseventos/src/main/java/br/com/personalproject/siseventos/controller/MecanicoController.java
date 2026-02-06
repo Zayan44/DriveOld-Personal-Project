@@ -1,5 +1,6 @@
 package br.com.personalproject.siseventos.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.personalproject.siseventos.dto.MecanicoRequestDTO;
 import br.com.personalproject.siseventos.dto.MecanicoResponseDTO;
@@ -27,21 +29,33 @@ public class MecanicoController {
 @GetMapping("/listar/mecanico")
 
     public ResponseEntity<List<MecanicoResponseDTO>> listarMecanico() {
-        return mecanicoService.listarMecanico();
+        List<MecanicoResponseDTO> response = mecanicoService.listarMecanico();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/cadastrar/mecanico")
     public ResponseEntity<MecanicoResponseDTO> cadastrarMecanico(@RequestBody MecanicoRequestDTO dto) {
-        return mecanicoService.cadastrarMecanico(dto);
+        
+        MecanicoResponseDTO response = mecanicoService.cadastrarMecanico(dto);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(response);
     }
 
     @PutMapping("/atualizar/mecanico/{id}")
     public ResponseEntity<MecanicoResponseDTO> atualizarMecanico(@RequestBody MecanicoRequestDTO dto, @PathVariable Long id) {
-        return mecanicoService.atualizarMecanico(dto, id);
+        MecanicoResponseDTO response = mecanicoService.atualizarMecanico(dto, id);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/deletar/mecanico/{id}")
     public ResponseEntity<Void> deletarMecanico(@PathVariable Long id) {
-        return mecanicoService.deletarMecanico(id);
+        mecanicoService.deletarMecanico(id);
+        return ResponseEntity.noContent().build();
     }
 }

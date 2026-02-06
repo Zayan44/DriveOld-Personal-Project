@@ -1,5 +1,6 @@
 package br.com.personalproject.siseventos.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.personalproject.siseventos.dto.ServicoRequestDTO;
 import br.com.personalproject.siseventos.dto.ServicoResponseDTO;
@@ -24,25 +26,35 @@ public class ServicoController {
     @Autowired
     ServicoService servicoService;
     
-@GetMapping("/listar/servico")
-
+    @GetMapping("/listar/servico")
     public ResponseEntity<List<ServicoResponseDTO>> listarServico() {
-    return servicoService.listarServico();
+        List<ServicoResponseDTO> response = servicoService.listarServico();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/cadastrar/servico")
     public ResponseEntity<ServicoResponseDTO> cadastrarServico(@RequestBody ServicoRequestDTO servico) {
-        return servicoService.cadastrarServico(servico);
+        ServicoResponseDTO response = servicoService.cadastrarServico(servico);
+
+        URI location = ServletUriComponentsBuilder
+        .fromCurrentRequest()
+        .path("/{id}")
+        .buildAndExpand(response.getIdServico())
+        .toUri();
+
+        return ResponseEntity.created(location).body(response);
     }
 
     @PutMapping("/atualizar/servico/{id}")
     public ResponseEntity<ServicoResponseDTO> atualizarServico(@RequestBody ServicoRequestDTO servico, @PathVariable Long id) {
-        return servicoService.atualizarServico(servico,id);
+         ServicoResponseDTO response = servicoService.atualizarServico(servico,id);
+         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/deletar/servico/{id}")
     public ResponseEntity<Void> deletarServico(@PathVariable Long id) {
-        return servicoService.deletarServico(id);
+        servicoService.deletarServico(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

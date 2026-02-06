@@ -1,13 +1,10 @@
 package br.com.personalproject.siseventos.service;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.personalproject.siseventos.dto.VeiculoRequestDTO;
 import br.com.personalproject.siseventos.dto.VeiculoResponseDTO;
@@ -27,71 +24,59 @@ public class VeiculoService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
 // Listar veículos
-    
-    public ResponseEntity<List<VeiculoResponseDTO>> listarVeiculo() {
+    public List<VeiculoResponseDTO> listarVeiculo() {
 
-            List<VeiculoResponseDTO> veiculos = veiculoRepository.findAll()
-                    .stream()
-                    .map(VeiculoMapper::toDto)
-                    .toList();
+        List<VeiculoResponseDTO> veiculos = veiculoRepository.findAll()
+                .stream()
+                .map(VeiculoMapper::toDto)
+                .toList();
+        
+        List<VeiculoResponseDTO> response = veiculos;
 
-            return ResponseEntity.ok(veiculos);
+        return response;
     }
 
-    public ResponseEntity<VeiculoResponseDTO> cadastrarVeiculo(VeiculoRequestDTO dto, Long idCliente) {
+// Cadastrar veiculos
+    public VeiculoResponseDTO cadastrarVeiculo(VeiculoRequestDTO dto, Long idCliente) {
 
         Optional<Cliente> clienteEncontrado = clienteRepository.findById(idCliente);
 
         if (clienteEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            //exceção
         }
 
         Veiculo veiculo = VeiculoMapper.toEntity(dto);
-
         veiculo.setCliente(clienteEncontrado.get());
-
-        Veiculo veiculoSalvo = veiculoRepository.save(veiculo);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(veiculoSalvo.getIdVeiculo())
-                .toUri();
-
-        VeiculoResponseDTO dtoResponse = VeiculoMapper.toDto(veiculoSalvo);
-
-        return ResponseEntity.created(location).body(dtoResponse);
-}
-
+        veiculo = veiculoRepository.save(veiculo);
+        VeiculoResponseDTO response = VeiculoMapper.toDto(veiculo);
+        return response;
+    }
 
     // Atualizar veículo
-    public ResponseEntity<VeiculoResponseDTO> atualizarVeiculo(VeiculoRequestDTO dto, Long idVeiculo) {
+    public VeiculoResponseDTO atualizarVeiculo(VeiculoRequestDTO dto, Long idVeiculo) {
 
-        Optional<Veiculo> veiculoSalvo = veiculoRepository.findById(idVeiculo);
+        Optional<Veiculo> veiculoEncontrado = veiculoRepository.findById(idVeiculo);
 
-        if (veiculoSalvo.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        if (veiculoEncontrado.isEmpty()) {
+            //exceção
         }
 
-        VeiculoMapper.toUpdateEntity(dto, veiculoSalvo.get());
+        Veiculo veiculo = veiculoEncontrado.get();
 
-        Veiculo atualizado = veiculoRepository.save(veiculoSalvo.get());
+        veiculo = VeiculoMapper.toUpdateEntity(dto, veiculo);
 
-        VeiculoResponseDTO dtoResponse = VeiculoMapper.toDto(atualizado);
+        veiculo = veiculoRepository.save(veiculo);
 
-        return ResponseEntity.ok(dtoResponse);
+        VeiculoResponseDTO response = VeiculoMapper.toDto(veiculo);
+
+        return response;
     }
 
     // Deletar veículo
-    public ResponseEntity<Void> deletarVeiculo(Long id) {
-
-        if (!veiculoRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-
+    public void deletarVeiculo(Long id) {
         veiculoRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 
     // Buscar por ID

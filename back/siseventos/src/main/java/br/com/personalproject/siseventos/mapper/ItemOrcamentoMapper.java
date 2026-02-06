@@ -16,7 +16,6 @@ public class ItemOrcamentoMapper {
         PecaService pecaService = new PecaService();
         ServicoService servicoService = new ServicoService();
 
-
         if (itemOrcamentoRequestDTO.getTipo().equals(TipoItemOrcamento.SERVICO)) {
             
             Servico servico = servicoService.buscarServicoporId(itemOrcamentoRequestDTO.getIdReferencia());
@@ -25,9 +24,8 @@ public class ItemOrcamentoMapper {
             itemOrcamento.setTipo(itemOrcamentoRequestDTO.getTipo());  
             itemOrcamento.setQuantidade(itemOrcamentoRequestDTO.getQuantidade());
         }
-         
+
         else {
-            
             itemOrcamento.setPeca(pecaService.buscarPecaporId(itemOrcamentoRequestDTO.getIdReferencia()));
             itemOrcamento.setTipo(itemOrcamentoRequestDTO.getTipo());  
             itemOrcamento.setQuantidade(itemOrcamentoRequestDTO.getQuantidade());

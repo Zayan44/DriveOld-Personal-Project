@@ -19,7 +19,7 @@ public abstract class Pessoa {
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPessoa;
+    private Long id;
     
     private String nome;
     private String cpf;

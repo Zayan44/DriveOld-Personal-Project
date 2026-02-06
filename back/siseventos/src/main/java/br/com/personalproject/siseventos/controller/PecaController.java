@@ -1,5 +1,6 @@
 package br.com.personalproject.siseventos.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.personalproject.siseventos.dto.PecaRequestDTO;
 import br.com.personalproject.siseventos.dto.PecaResponseDTO;
@@ -29,27 +31,35 @@ public class PecaController {
     // Listar peças
     @GetMapping
     public ResponseEntity<List<PecaResponseDTO>> listarPeca() {
-        return pecaService.listarPeca();
+        List<PecaResponseDTO> response = pecaService.listarPeca();
+        return ResponseEntity.ok(response);
     }
 
     // Cadastrar peça
     @PostMapping
     public ResponseEntity<PecaResponseDTO> cadastrarPeca(@RequestBody PecaRequestDTO dto) {
-        return pecaService.cadastrarPeca(dto);
+        PecaResponseDTO response = pecaService.cadastrarPeca(dto);
+
+        URI location = ServletUriComponentsBuilder
+        .fromCurrentRequest()
+        .path("/{id}")
+        .buildAndExpand(response.getIdPeca())
+        .toUri();
+
+        return ResponseEntity.created(location).body(response);
     }
 
     // Atualizar peça
     @PutMapping("/{id}")
-    public ResponseEntity<PecaResponseDTO> atualizarPeca(
-            @RequestBody PecaRequestDTO dto,
-            @PathVariable Long id
-    ) {
-        return pecaService.atualizarPeca(dto, id);
+    public ResponseEntity<PecaResponseDTO> atualizarPeca(@RequestBody PecaRequestDTO dto, @PathVariable Long id) {
+        PecaResponseDTO response = pecaService.atualizarPeca(dto, id);
+        return ResponseEntity.ok(response);
     }
 
     // Deletar peça
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPeca(@PathVariable Long id) {
-        return pecaService.deletarPeca(id);
+        pecaService.deletarPeca(id);
+        return ResponseEntity.noContent().build();
     }
 }

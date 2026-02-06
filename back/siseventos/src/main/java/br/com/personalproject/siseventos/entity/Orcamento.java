@@ -7,6 +7,8 @@ import java.util.List;
 import br.com.personalproject.siseventos.association.ItemOrcamento;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Table(name = "orcamentos")
 @Entity
 @Getter
 @Setter
@@ -28,6 +31,7 @@ public class Orcamento {
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long idOrcamento;
 
     @ManyToOne
@@ -41,14 +45,24 @@ public class Orcamento {
     )
     private List<ItemOrcamento> itensOrcamento = new ArrayList<>();
 
+    @Column(name = "status")
     private String status;
+
+    @Column(name = "valor_total")
     private BigDecimal valorTotal;
+
+    @Column(name = "valor_servicos")
     private BigDecimal valorServico;
+
+    @Column(name = "valor_pecas")
     private BigDecimal valorPeca;
+
+    @Column(name = "desconto")
     private BigDecimal desconto;
     
         //metodo para adicionar ItemOrcamento
         public void adicionarItemOrcamento(ItemOrcamento itemOrcamento) {
+            
             
             itemOrcamento.setOrcamento(this);
             this.itensOrcamento.add(itemOrcamento);

@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ClienteResponseDTO {
 
-    private Long idCliente;
+    private Long id;
     private String nome;
     private String cpf;
     private String email;

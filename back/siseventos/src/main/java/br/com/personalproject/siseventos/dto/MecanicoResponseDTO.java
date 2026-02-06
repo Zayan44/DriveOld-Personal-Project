@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MecanicoResponseDTO {
     
-    private Long idPessoa; 
+    private Long id; 
     private String nome;
     private String cpf;
     private String email;

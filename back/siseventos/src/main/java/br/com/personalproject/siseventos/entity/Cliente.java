@@ -33,4 +33,9 @@ public class Cliente extends Pessoa {
         veiculosCadastradoList.add(veiculo);
         veiculo.setCliente(this);
     }
+    
+    public void removerVeiculo(Veiculo veiculo){
+        veiculosCadastradoList.remove(veiculo);
+        veiculo.setCliente(null);
+    }
 }

@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VeiculoResponseDTO {
-
     private Long id;
     private TipoVeiculo tipo;
     private String placa;

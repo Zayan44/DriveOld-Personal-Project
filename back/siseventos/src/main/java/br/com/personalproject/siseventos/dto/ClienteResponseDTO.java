@@ -24,7 +24,5 @@ public class ClienteResponseDTO {
     private String bairro;
     private String estado;
 
-
-
     private List<VeiculoResponseDTO> veiculos = new ArrayList<>();
 }

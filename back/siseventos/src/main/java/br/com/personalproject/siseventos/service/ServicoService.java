@@ -18,7 +18,6 @@ public class ServicoService {
     @Autowired
     private ServicoRepository servicoRepository;
 
-    // Listar serviços
     @Transactional(readOnly = true)
     public List<ServicoResponseDTO> listarServico() {
 
@@ -30,7 +29,6 @@ public class ServicoService {
         return response;
     }
 
-    // Cadastrar serviço
     @Transactional
     public ServicoResponseDTO cadastrarServico(ServicoRequestDTO dto) {
         Servico servico = ServicoMapper.toEntity(dto);
@@ -39,7 +37,6 @@ public class ServicoService {
         return response;
     }
 
-    // Atualizar serviço
     @Transactional
     public ServicoResponseDTO atualizarServico(ServicoRequestDTO dto, Long id) {
 
@@ -51,18 +48,16 @@ public class ServicoService {
         return response;
     }
 
-    // Deletar serviço
     @Transactional
     public void deletarServico(Long id) {
         servicoRepository.deleteById(id);
     }
 
-    // Buscar serviço por id
+    // Regras
     @Transactional(readOnly = true)
     public Servico buscarServicoPorId(Long id) {
 
-        Servico servico = servicoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
+        Servico servico = servicoRepository.findById(id).orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
 
         return servico;
     }

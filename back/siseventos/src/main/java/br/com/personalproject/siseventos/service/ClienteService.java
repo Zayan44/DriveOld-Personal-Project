@@ -58,15 +58,29 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
+    // Regras
+
     @Transactional
-    public void adicionarVeiculo(Long idCliente, Veiculo veiculo) {
+    public void adicionarVeiculoDoCliente(Long idCliente, Veiculo veiculo) {
+        Cliente cliente = clienteRepository.findById(idCliente).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        cliente.adicionarVeiculo(veiculo);
+        clienteRepository.save(cliente);
+    }
 
-    Cliente cliente = clienteRepository.findById(idCliente)
-        .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    @Transactional
+    public void removerVeiculoDoCliente(Long idCliente, Long idVeiculo){
 
-    veiculo.setCliente(cliente);
-    cliente.getVeiculosCadastradoList().add(veiculo);
-    clienteRepository.save(cliente);
-}
+        Cliente cliente = clienteRepository.findById(idCliente).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        Veiculo veiculo = cliente.getVeiculosCadastradoList()
+                .stream()
+                .filter(v -> v.getId().equals(idVeiculo))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Veículo não pertence ao cliente"));
+
+        cliente.removerVeiculo(veiculo);
+
+        clienteRepository.save(cliente);
+    }
 
 }

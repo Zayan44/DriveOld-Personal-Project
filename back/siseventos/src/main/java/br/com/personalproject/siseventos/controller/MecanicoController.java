@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.personalproject.siseventos.dto.MecanicoRequestDTO;
 import br.com.personalproject.siseventos.dto.MecanicoResponseDTO;
 import br.com.personalproject.siseventos.service.MecanicoService;
+import jakarta.validation.Valid;
 
 @RequestMapping("/api/mecanico")
 @RestController
@@ -35,7 +36,7 @@ public class MecanicoController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<MecanicoResponseDTO> cadastrarMecanico(@RequestBody MecanicoRequestDTO dto) {
+    public ResponseEntity<MecanicoResponseDTO> cadastrarMecanico(@Valid @RequestBody MecanicoRequestDTO dto) {
         
         MecanicoResponseDTO response = mecanicoService.cadastrarMecanico(dto);
 
@@ -49,7 +50,7 @@ public class MecanicoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<MecanicoResponseDTO> atualizarMecanico(@RequestBody MecanicoRequestDTO dto, @PathVariable Long id) {
+    public ResponseEntity<MecanicoResponseDTO> atualizarMecanico(@Valid @RequestBody MecanicoRequestDTO dto, @PathVariable Long id) {
         MecanicoResponseDTO response = mecanicoService.atualizarMecanico(dto, id);
         return ResponseEntity.ok(response);
     }

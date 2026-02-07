@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.personalproject.siseventos.dto.ItemOrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.ItemOrcamentoResponseDTO;
 import br.com.personalproject.siseventos.service.ItemOrcamentoService;
+import jakarta.validation.Valid;
 
 @RequestMapping("/api/item")
 @RestController
@@ -24,7 +25,7 @@ public class ItemOrcamentoController {
     ItemOrcamentoService itemOrcamentoService;
     
     @PostMapping("/cadastrar")
-    public ResponseEntity<ItemOrcamentoResponseDTO> cadastrarItemOrcamento(@RequestBody ItemOrcamentoRequestDTO dto) {
+    public ResponseEntity<ItemOrcamentoResponseDTO> cadastrarItemOrcamento(@Valid @RequestBody ItemOrcamentoRequestDTO dto) {
         ItemOrcamentoResponseDTO response = itemOrcamentoService.criarItemOrcamento(dto);
 
         URI location = ServletUriComponentsBuilder

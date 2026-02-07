@@ -18,7 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.personalproject.siseventos.dto.ServicoRequestDTO;
 import br.com.personalproject.siseventos.dto.ServicoResponseDTO;
-import br.com.personalproject.siseventos.service.ServicoService;  
+import br.com.personalproject.siseventos.service.ServicoService;
+import jakarta.validation.Valid;  
 
 @RequestMapping("/api/servico")
 @RestController
@@ -35,7 +36,7 @@ public class ServicoController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<ServicoResponseDTO> cadastrarServico(@RequestBody ServicoRequestDTO servico) {
+    public ResponseEntity<ServicoResponseDTO> cadastrarServico(@Valid @RequestBody ServicoRequestDTO servico) {
         ServicoResponseDTO response = servicoService.cadastrarServico(servico);
 
         URI location = ServletUriComponentsBuilder
@@ -48,7 +49,7 @@ public class ServicoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<ServicoResponseDTO> atualizarServico(@RequestBody ServicoRequestDTO servico, @PathVariable Long id) {
+    public ResponseEntity<ServicoResponseDTO> atualizarServico(@Valid @RequestBody ServicoRequestDTO servico, @PathVariable Long id) {
          ServicoResponseDTO response = servicoService.atualizarServico(servico,id);
          return ResponseEntity.ok(response);
     }

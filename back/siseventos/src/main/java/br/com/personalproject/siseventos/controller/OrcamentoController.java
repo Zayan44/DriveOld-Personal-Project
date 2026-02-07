@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.personalproject.siseventos.dto.OrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.OrcamentoResponseDTO;
 import br.com.personalproject.siseventos.service.OrcamentoService;
+import jakarta.validation.Valid;
 
 @RequestMapping("/api/orcamento")
 @RestController
@@ -33,7 +34,7 @@ public class OrcamentoController {
     }
 
     @PostMapping("/cadastrar/{id}")
-    public ResponseEntity<OrcamentoResponseDTO> cadastrarOrcamento(@RequestBody OrcamentoRequestDTO orcamento, @PathVariable Long id) {
+    public ResponseEntity<OrcamentoResponseDTO> cadastrarOrcamento(@Valid @RequestBody OrcamentoRequestDTO orcamento, @PathVariable Long id) {
         
         OrcamentoResponseDTO response = orcamentoService.criarOrcamento(orcamento, id);
         

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.personalproject.siseventos.dto.VeiculoRequestDTO;
 import br.com.personalproject.siseventos.dto.VeiculoResponseDTO;
 import br.com.personalproject.siseventos.service.VeiculoService;
+import jakarta.validation.Valid;
 
 @RequestMapping("/api/veiculo")
 @RestController
@@ -35,7 +36,7 @@ public class VeiculoController {
     }
 
     @PostMapping("/cadastrar/{id}")
-    public ResponseEntity<VeiculoResponseDTO> cadastrarVeiculo(@RequestBody VeiculoRequestDTO dto, @PathVariable Long id) {
+    public ResponseEntity<VeiculoResponseDTO> cadastrarVeiculo(@Valid @RequestBody VeiculoRequestDTO dto, @PathVariable Long id) {
         
         VeiculoResponseDTO response = veiculoService.cadastrarVeiculo(dto,id);
        
@@ -49,7 +50,7 @@ public class VeiculoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> atualizarVeiculo(@RequestBody VeiculoRequestDTO veiculo, @PathVariable Long id) {
+    public ResponseEntity<?> atualizarVeiculo(@Valid @RequestBody VeiculoRequestDTO veiculo, @PathVariable Long id) {
          VeiculoResponseDTO response = veiculoService.atualizarVeiculo(veiculo,id);
          return ResponseEntity.ok(response);
     }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.personalproject.siseventos.dto.PecaRequestDTO;
 import br.com.personalproject.siseventos.dto.PecaResponseDTO;
 import br.com.personalproject.siseventos.service.PecaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/peca")
@@ -37,7 +38,7 @@ public class PecaController {
 
     // Cadastrar peça
     @PostMapping("/cadastrar")
-    public ResponseEntity<PecaResponseDTO> cadastrarPeca(@RequestBody PecaRequestDTO dto) {
+    public ResponseEntity<PecaResponseDTO> cadastrarPeca(@Valid @RequestBody PecaRequestDTO dto) {
         PecaResponseDTO response = pecaService.cadastrarPeca(dto);
 
         URI location = ServletUriComponentsBuilder
@@ -50,7 +51,7 @@ public class PecaController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<PecaResponseDTO> atualizarPeca(@RequestBody PecaRequestDTO dto, @PathVariable Long id) {
+    public ResponseEntity<PecaResponseDTO> atualizarPeca(@Valid @RequestBody PecaRequestDTO dto, @PathVariable Long id) {
         PecaResponseDTO response = pecaService.atualizarPeca(dto, id);
         return ResponseEntity.ok(response);
     }

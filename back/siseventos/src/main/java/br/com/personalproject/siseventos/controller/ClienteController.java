@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.personalproject.siseventos.dto.ClienteRequestDTO;
 import br.com.personalproject.siseventos.dto.ClienteResponseDTO;
 import br.com.personalproject.siseventos.service.ClienteService;
+import jakarta.validation.Valid;
 
 @RequestMapping("/api/cliente")
 @RestController
@@ -35,7 +36,7 @@ ClienteService clienteService;
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<ClienteResponseDTO> cadastrarCliente(@RequestBody ClienteRequestDTO dto) {
+    public ResponseEntity<ClienteResponseDTO> cadastrarCliente(@Valid @RequestBody ClienteRequestDTO dto) {
         
         ClienteResponseDTO response = clienteService.cadastrarCliente(dto);
 
@@ -49,7 +50,7 @@ ClienteService clienteService;
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<ClienteResponseDTO> atualizarCliente(@RequestBody ClienteRequestDTO dto, @PathVariable Long id) {
+    public ResponseEntity<ClienteResponseDTO> atualizarCliente(@Valid @RequestBody ClienteRequestDTO dto, @PathVariable Long id) {
          ClienteResponseDTO response = clienteService.atualizarCliente(dto, id);
          return ResponseEntity.ok(response);
     }   

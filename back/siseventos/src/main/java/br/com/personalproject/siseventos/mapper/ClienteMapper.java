@@ -17,7 +17,6 @@ public class ClienteMapper {
         cliente.setCpf(dto.getCpf());
         cliente.setEstado(dto.getEstado());
         cliente.setCidade(dto.getCidade());
-        cliente.setSenha(dto.getSenha());
         cliente.setBairro(dto.getBairro());
 
         return cliente;

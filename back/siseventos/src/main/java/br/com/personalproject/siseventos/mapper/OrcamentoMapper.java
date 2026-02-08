@@ -6,18 +6,25 @@ import br.com.personalproject.siseventos.entity.Veiculo;
 
 public class OrcamentoMapper {
 
-    public static OrcamentoResponseDTO toDto(Orcamento orcamento) {
+    public static OrcamentoResponseDTO toDto(Orcamento entity) {
 
         OrcamentoResponseDTO dto = new OrcamentoResponseDTO();
 
-        dto.setIdOrcamento(orcamento.getIdOrcamento());
-        dto.setIdVeiculo(orcamento.getVeiculo().getId());
-        dto.setPlaca(orcamento.getVeiculo().getPlaca());
-        dto.setModelo(orcamento.getVeiculo().getModelo());
-        dto.setStatus(orcamento.getStatus());
-        dto.setValorTotal(orcamento.getValorTotal());
+        dto.setIdOrcamento(entity.getIdOrcamento());
+        dto.setIdVeiculo(entity.getVeiculo().getId());
+        dto.setPlaca(entity.getVeiculo().getPlaca());
+        dto.setModelo(entity.getVeiculo().getModelo());
+        dto.setStatus(entity.getStatus());
+        dto.setValorTotal(entity.getValorTotal());
 
-        dto.setDesconto(orcamento.getDesconto());
+        dto.setDesconto(entity.getDesconto());
+
+        dto.setItensOrcamento(
+            entity.getItensOrcamento()
+            .stream()
+            .map(ItemOrcamentoMapper::toDto)
+            .toList()
+        );
 
         return dto;
     }

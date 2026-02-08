@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.personalproject.siseventos.association.ItemOrcamento;
 import br.com.personalproject.siseventos.dto.OrcamentoRequestDTO;
@@ -41,14 +40,12 @@ public class OrcamentoService {
         return response;
     }
 
-    @Transactional
-    public void deletarOrcamento(@PathVariable Long idOrcamento) {
-        orcamentoRepository.deleteById(idOrcamento);
-    }
 
-    @Transactional
-     public void adicionarItemOrcamento(Long id, Orcamento orcamento) {
-
+    @Transactional 
+    public void adicionarItemOrcamentoAoOrcamento(Long idOrcamento, ItemOrcamento item ) {
+        Orcamento orcamento = orcamentoRepository.findById(idOrcamento).orElseThrow(() -> new RuntimeException("Orcamento não encontrado"));
+        orcamento.adicionarItemOrcamento(item);
+        orcamentoRepository.save(orcamento);
     }
 
     @Transactional

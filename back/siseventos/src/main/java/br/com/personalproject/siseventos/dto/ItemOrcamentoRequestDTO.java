@@ -16,8 +16,8 @@ public class ItemOrcamentoRequestDTO {
     @NotNull(message = "O id de orcamento é obrigatório")
     private Long idOrcamento;
 
-    @NotNull(message = "O id de referência é obrigatório")
-    private Long idReferencia;              // Pode ser peça ou serviço
+    @NotNull(message = "O id de peça ou serviço é obrigatório")
+    private Long idReferencia;           
 
     @NotNull(message = "O tipo do item é obrigatório")
     private TipoItemOrcamento tipo;        

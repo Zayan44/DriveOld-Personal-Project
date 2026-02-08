@@ -61,6 +61,8 @@ public class ItemOrcamentoService {
 
         itemOrcamentoRepository.save(itemOrcamento);
 
+        orcamento.adicionarItemOrcamento(itemOrcamento);
+
         return ItemOrcamentoMapper.toDto(itemOrcamento);
     }
 

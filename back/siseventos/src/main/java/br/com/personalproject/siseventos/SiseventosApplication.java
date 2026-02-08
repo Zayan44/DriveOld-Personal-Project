@@ -8,5 +8,4 @@ public class SiseventosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SiseventosApplication.class, args);
 	}
-
 }

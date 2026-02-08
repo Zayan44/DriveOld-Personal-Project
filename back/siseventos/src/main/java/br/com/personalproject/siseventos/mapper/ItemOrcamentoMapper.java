@@ -3,54 +3,46 @@ package br.com.personalproject.siseventos.mapper;
 import br.com.personalproject.siseventos.association.ItemOrcamento;
 import br.com.personalproject.siseventos.dto.ItemOrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.ItemOrcamentoResponseDTO;
+import br.com.personalproject.siseventos.entity.Peca;
 import br.com.personalproject.siseventos.entity.Servico;
 import br.com.personalproject.siseventos.enumerated.TipoItemOrcamento;
-import br.com.personalproject.siseventos.service.PecaService;
-import br.com.personalproject.siseventos.service.ServicoService;
 
 public class ItemOrcamentoMapper {
 
-    public static ItemOrcamento toEntity(ItemOrcamentoRequestDTO itemOrcamentoRequestDTO) {
+    public static ItemOrcamento toEntity(ItemOrcamentoRequestDTO dto,Servico servico,Peca peca) {
 
-        ItemOrcamento itemOrcamento = new ItemOrcamento();
-        PecaService pecaService = new PecaService();
-        ServicoService servicoService = new ServicoService();
+        ItemOrcamento item = new ItemOrcamento();
 
-        if (itemOrcamentoRequestDTO.getTipo().equals(TipoItemOrcamento.SERVICO)) {
-            
-            Servico servico = servicoService.buscarServicoPorId(itemOrcamentoRequestDTO.getIdReferencia());
+        item.setTipo(dto.getTipo());
+        item.setQuantidade(dto.getQuantidade());
 
-            itemOrcamento.setServico(servico);
-            itemOrcamento.setTipo(itemOrcamentoRequestDTO.getTipo());  
-            itemOrcamento.setQuantidade(itemOrcamentoRequestDTO.getQuantidade());
+        if (dto.getTipo().equals(TipoItemOrcamento.SERVICO)) {
+            item.setServico(servico);
+        } else {
+            item.setPeca(peca);
         }
 
-        else {
-            itemOrcamento.setPeca(pecaService.buscarPecaPorId(itemOrcamentoRequestDTO.getIdReferencia()));
-            itemOrcamento.setTipo(itemOrcamentoRequestDTO.getTipo());  
-            itemOrcamento.setQuantidade(itemOrcamentoRequestDTO.getQuantidade());
-        }
-     
-        return itemOrcamento;
+        return item;
     }
 
-    public static ItemOrcamentoResponseDTO toDto(ItemOrcamento itemOrcamento) {
+    public static ItemOrcamentoResponseDTO toDto(ItemOrcamento item) {
 
-        ItemOrcamentoResponseDTO itemOrcamentoResponseDTO = new ItemOrcamentoResponseDTO();
+        ItemOrcamentoResponseDTO dto = new ItemOrcamentoResponseDTO();
 
-        if (itemOrcamento.getTipo().equals(TipoItemOrcamento.SERVICO)) {
-            itemOrcamentoResponseDTO.setIdReferencia(itemOrcamento.getServico().getId());
-        } 
+        dto.setId(item.getId());
+        dto.setQuantidade(item.getQuantidade());
+        dto.setValorUnitario(item.getValorUnitario());
+        dto.setValorTotal(item.getValorTotal());
+        dto.setTipo(item.getTipo());
         
-        else {
-            itemOrcamentoResponseDTO.setIdReferencia(itemOrcamento.getPeca().getId());
+        if (item.getTipo().equals(TipoItemOrcamento.SERVICO)) {
+            dto.setIdReferencia(item.getServico().getId());
+            dto.setNomeReferencia(item.getServico().getNome());
+        } else {
+            dto.setIdReferencia(item.getPeca().getId());
+            dto.setNomeReferencia(item.getPeca().getNome());
         }
 
-        itemOrcamentoResponseDTO.setId(itemOrcamento.getIdItemOrcamento());
-        itemOrcamentoResponseDTO.setQuantidade(itemOrcamento.getQuantidade());
-        itemOrcamentoResponseDTO.setValorUnitario(itemOrcamento.getValorUnitario());
-        itemOrcamentoResponseDTO.setValorTotal(itemOrcamento.getValorTotal());
-
-        return itemOrcamentoResponseDTO;
+        return dto;
     }
 }

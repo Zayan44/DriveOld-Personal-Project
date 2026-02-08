@@ -68,7 +68,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public void removerVeiculoDoCliente(Long idCliente, Long idVeiculo){
+    public void removerVeiculoDoCliente(Long idCliente, Long idVeiculo) {
 
         Cliente cliente = clienteRepository.findById(idCliente).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
@@ -79,7 +79,6 @@ public class ClienteService {
                 .orElseThrow(() -> new RuntimeException("Veículo não pertence ao cliente"));
 
         cliente.removerVeiculo(veiculo);
-
         clienteRepository.save(cliente);
     }
 

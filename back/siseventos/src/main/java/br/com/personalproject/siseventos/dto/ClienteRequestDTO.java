@@ -16,7 +16,7 @@ import lombok.Setter;
 public class ClienteRequestDTO {
 
     @NotBlank(message = "Insira um nome")
-    @Size(min = 3, message = "O nome deve conter mais de três caracteres")
+    @Size(min = 3, message = "O nome deve conter mais de 3 caracteres")
     @Size(max = 100, message = "O nome deve conter menos de 70 caracteres")
     @Pattern(regexp = "^[A-Za-zá-úÁ-Ú ]+$", message = "Insira apenas letras em seu nome")
     private String nome;

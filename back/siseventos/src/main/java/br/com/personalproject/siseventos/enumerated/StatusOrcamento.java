@@ -1,13 +1,14 @@
 package br.com.personalproject.siseventos.enumerated;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-
-@AllArgsConstructor
 @Getter
-public enum TipoItemOrcamento {
-    PECA("Peça"),
-    SERVICO("Serviço");
+@AllArgsConstructor
+public enum StatusOrcamento {
+    CANCELADO("Cancelado"),
+    AGUARDANDOPAGAMENTO("Aguardando pagamento"),
+    PAGO("Pago");
 
     private final String descricao;
 

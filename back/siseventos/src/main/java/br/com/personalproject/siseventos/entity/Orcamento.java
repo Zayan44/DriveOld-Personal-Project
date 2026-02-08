@@ -6,15 +6,15 @@ import java.util.List;
 
 import br.com.personalproject.siseventos.association.ItemOrcamento;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
-import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,22 +51,21 @@ public class Orcamento {
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
 
-    @Column(name = "valor_servicos")
-    private BigDecimal valorServico;
-
-    @Column(name = "valor_pecas")
-    private BigDecimal valorPeca;
-
     @Column(name = "desconto")
     private BigDecimal desconto;
     
-        //metodo para adicionar ItemOrcamento
-        public void adicionarItemOrcamento(ItemOrcamento itemOrcamento) {
-            
-            
-            itemOrcamento.setOrcamento(this);
-            this.itensOrcamento.add(itemOrcamento);
-        }
+        //regras
 
+    public void adicionarItemOrcamento(ItemOrcamento itemOrcamento) {
+        itemOrcamento.setOrcamento(this);
+        this.itensOrcamento.add(itemOrcamento);
+    }
 
+    public void removerItemOrcamento(ItemOrcamento itemOrcamento) {
+        itensOrcamento.remove(itemOrcamento);
+    } 
+    
+    public void calcularValoresTotais(ItemOrcamento itemOrcamento) {
+        itemOrcamento.setValorTotal(itemOrcamento.getValorUnitario().multiply(BigDecimal.valueOf(itemOrcamento.getQuantidade()))); 
+    }
 }

@@ -20,11 +20,8 @@ public class OrcamentoResponseDTO {
     private Long idVeiculo;
     private String placa;
     private String modelo;
-
     private String status;
     private BigDecimal valorTotal;
-    private BigDecimal valorServico;
-    private BigDecimal valorPeca;
     private BigDecimal desconto;
 
     private List<ItemOrcamentoResponseDTO> detalhes = new ArrayList<>();

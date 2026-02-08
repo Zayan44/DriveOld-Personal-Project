@@ -16,8 +16,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrcamentoRequestDTO {
 
-    private Long idVeiculo;
-
     private String status;
     private BigDecimal desconto;
 

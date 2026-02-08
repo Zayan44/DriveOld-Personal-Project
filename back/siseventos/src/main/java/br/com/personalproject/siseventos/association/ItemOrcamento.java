@@ -34,7 +34,7 @@ public class ItemOrcamento {
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
-    private Long idItemOrcamento;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "fk_orcamento",nullable = false)
@@ -62,11 +62,5 @@ public class ItemOrcamento {
     private BigDecimal valorTotal;
 
     //Metodos
-
-    //metodo para calcularTotal
-    public void calcularValorTotal(){
-        valorTotal = valorUnitario.multiply(BigDecimal.valueOf(quantidade));
-    }
-
 }
 

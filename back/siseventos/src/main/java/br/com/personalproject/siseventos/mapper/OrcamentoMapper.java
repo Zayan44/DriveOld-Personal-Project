@@ -16,8 +16,7 @@ public class OrcamentoMapper {
         dto.setModelo(orcamento.getVeiculo().getModelo());
         dto.setStatus(orcamento.getStatus());
         dto.setValorTotal(orcamento.getValorTotal());
-        dto.setValorServico(orcamento.getValorServico());
-        dto.setValorPeca(orcamento.getValorPeca());
+
         dto.setDesconto(orcamento.getDesconto());
 
         return dto;
@@ -29,11 +28,7 @@ public class OrcamentoMapper {
         
         orcamento.setVeiculo(veiculo);
         orcamento.setStatus(dto.getStatus());
-       // orcamento.setValorServico(dto.getValorServico());
-       // orcamento.setValorPeca(dto.getValorPeca());
         orcamento.setDesconto(dto.getDesconto());
-
-        
         return orcamento;
     }
 }

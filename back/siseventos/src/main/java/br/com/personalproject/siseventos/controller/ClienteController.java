@@ -60,5 +60,4 @@ ClienteService clienteService;
         clienteService.deletarCliente(id);
         return ResponseEntity.noContent().build();
     }
-
 }

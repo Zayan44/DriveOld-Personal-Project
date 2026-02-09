@@ -17,10 +17,16 @@ Sistema para controle de pessoas e demandas em uma oficina mecânica
 
 ## 📁 Estrutura do Projeto
 
+### Diagrama UML (Em desenvolvimento)
+
+<img width="4059" height="6785" alt="Locadora 3FN Contratos Flow-2026-02-09-125914" src="https://github.com/user-attachments/assets/fd534e99-2bdd-4d0f-a859-d4f2e00ede3c" />
+
+### Organização de Pacotes e Classes
+
 ```
 src/main/java/br/com/personalproject/siseventos/
 ├── 📁 association
-│   └── 📄 ItemOrcamento.java             # Entidade de ligação (Many-to-Many de Peca e Servico com Orcamento)
+│   └── 📄 ItemOrcamento.java             
 ├── 📁 controller
 │   ├── 📄 ClienteController.java
 │   ├── 📄 ItemOrcamentoController.java
@@ -31,9 +37,9 @@ src/main/java/br/com/personalproject/siseventos/
 │   └── 📄 VeiculoController.java
 ├── 📁 service
 │   ├── 📄 ClienteService.java
-│   ├── 📄 ItemOrcamentoService.java      # Lógica de cálculo de subtotal
+│   ├── 📄 ItemOrcamentoService.java    
 │   ├── 📄 MecanicoService.java
-│   ├── 📄 OrcamentoService.java          # Lógica de cálculo do valor total
+│   ├── 📄 OrcamentoService.java          
 │   ├── 📄 PecaService.java
 │   ├── 📄 ServicoService.java
 │   └── 📄 VeiculoService.java
@@ -45,9 +51,12 @@ src/main/java/br/com/personalproject/siseventos/
 │   ├── 📄 PecaRepository.java
 │   ├── 📄 ServicoRepository.java
 │   └── 📄 VeiculoRepository.java
+├── 📁 security
+│   └── 📄 SecurityConfig.java
 ├── 📁 entity
-│   ├── 📄 Pessoa.java                   # @MappedSuperclass
+│   ├── 📄 Pessoa.java                   
 │   ├── 📄 Cliente.java
+│   ├── 📄 Conta.java
 │   ├── 📄 Mecanico.java
 │   ├── 📄 Orcamento.java
 │   ├── 📄 Peca.java
@@ -62,20 +71,66 @@ src/main/java/br/com/personalproject/siseventos/
 │   ├── 📄 ServicoRequestDTO.java / ServicoResponseDTO.java
 │   └── 📄 VeiculoRequestDTO.java / VeiculoResponseDTO.java
 ├── 📁 mapper
-│   ├── 📄 MapperItemOrcamento.java
-│   └── 📄 MapperOrcamento.java
+│   ├── 📄 Cliente.java
+│   ├── 📄 ItemOrcamentoMapper.java
+│   ├── 📄 MecanicoMapper.java
+│   ├── 📄 OrcamentoMapper.java
+│   ├── 📄 PecaMapper.java
+│   ├── 📄 ServicoMapper.java
+│   ├── 📄 VeiculoMapper.java
+│   └── 📄 OrcamentoMapper.java
 ├── 📁 enumerated
-│   └── 📄 TipoItemOrcamento.java         # Enum (PECA, SERVICO)
-└── 📄 SiseventosApplication.java         # Classe Principal
+│   ├── 📄 PerfisAutenticacao.java
+│   ├── 📄 StatusVeiculo.java
+│   ├── 📄 StatusOrcamento.java
+│   ├── 📄 TipoItemOrcamento.java
+│   └── 📄 TipoVeiculo.java
+└── 📄 SiseventosApplication.java
 ```
 
 ---
 
-## 🛠️ Instalação
+## 🛠️ Tecnologias Utilizadas 
 
-### Tecnologias Utilizadas 
 - Java 25
-- PostgreSQL 16.11
+- PostgreSQL 16+
+- Spring Security
+- JWT
+- Lombok
+- Spring JPA (Hibernate)
+- Validation
+---
+
+## 🛠️ Como Executar
+
+
+### Clonar o repositório
+
+git clone https://github.com/seu-usuario/driveold.git
+
+### Configurar banco de dados
+
+Crie um banco de dados PostgreSQL:
+
+CREATE DATABASE nomedobanco;
+
+### Configurar arquivo application.properties
+
+spring.datasource.username=postgres
+spring.datasource.password=senha
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/nomedobanco
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+spring.jpa.hibernate.ddl-auto=update
+
+### Executar aplicação
+
+./mvnw spring-boot:run
+
 ---
 
 ## 🤝 Contribua

@@ -21,7 +21,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Peca {
 
-    //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     

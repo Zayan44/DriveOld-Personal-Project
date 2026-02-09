@@ -11,7 +11,6 @@ public class ClienteMapper {
         Cliente cliente = new Cliente();
 
         cliente.setNome(dto.getNome());
-        cliente.setEmail(dto.getEmail());
         cliente.setTelefone(dto.getTelefone());
         cliente.setEndereco(dto.getEndereco());
         cliente.setCpf(dto.getCpf());
@@ -28,7 +27,6 @@ public class ClienteMapper {
         
         dto.setId(entity.getId());
         dto.setNome(entity.getNome());
-        dto.setEmail(entity.getEmail());
         dto.setTelefone(entity.getTelefone());
         dto.setEndereco(entity.getEndereco());
         dto.setCpf(entity.getCpf());
@@ -51,7 +49,6 @@ public class ClienteMapper {
     public static Cliente toUpdate(Cliente entity,ClienteRequestDTO dto) {
 
         entity.setNome(dto.getNome());
-        entity.setEmail(dto.getEmail());
         entity.setTelefone(dto.getTelefone());
         entity.setEndereco(dto.getEndereco());
         entity.setEstado(dto.getEstado());

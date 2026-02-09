@@ -2,12 +2,12 @@ package br.com.personalproject.siseventos.entity;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Servico {
 
-    //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -35,6 +34,4 @@ public class Servico {
 
     @Column(name = "preco")
     private BigDecimal preco;
-
-    //Metodos
 }

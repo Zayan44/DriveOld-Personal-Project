@@ -11,7 +11,6 @@ public class MecanicoMapper {
         Mecanico entity = new Mecanico();
 
         entity.setNome(dto.getNome());
-        entity.setEmail(dto.getEmail());
         entity.setTelefone(dto.getTelefone());
         entity.setEndereco(dto.getEndereco());
         entity.setCpf(dto.getCpf());
@@ -29,7 +28,6 @@ public class MecanicoMapper {
 
         dto.setId(entity.getId());
         dto.setNome(entity.getNome());
-        dto.setEmail(entity.getEmail());
         dto.setTelefone(entity.getTelefone());
         dto.setEndereco(entity.getEndereco());
         dto.setCpf(entity.getCpf());
@@ -43,7 +41,6 @@ public class MecanicoMapper {
     public static Mecanico toUpdate(MecanicoRequestDTO dto, Mecanico entity) {
 
         entity.setNome(dto.getNome());
-        entity.setEmail(dto.getEmail());
         entity.setTelefone(dto.getTelefone());
         entity.setEndereco(dto.getEndereco());
         entity.setCpf(dto.getCpf());

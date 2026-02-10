@@ -21,8 +21,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//Associasse com peca e servico
-
 @Table(name = "Item_Orcamento")
 @Entity
 @Getter
@@ -31,7 +29,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ItemOrcamento {
     
-    //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
@@ -60,7 +57,5 @@ public class ItemOrcamento {
 
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
-
-    //Metodos
 }
 

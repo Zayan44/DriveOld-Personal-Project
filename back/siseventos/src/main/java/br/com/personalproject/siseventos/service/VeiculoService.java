@@ -12,7 +12,6 @@ import br.com.personalproject.siseventos.entity.Veiculo;
 import br.com.personalproject.siseventos.mapper.VeiculoMapper;
 import br.com.personalproject.siseventos.repository.ClienteRepository;
 import br.com.personalproject.siseventos.repository.VeiculoRepository;
-import jakarta.transaction.Transactional;
 
 @Service
 public class VeiculoService {
@@ -63,10 +62,4 @@ public class VeiculoService {
         veiculoRepository.deleteById(id);
     }
 
-    //Regras
-
-    @Transactional
-    public Veiculo buscarVeiculoPorId(Long idVeiculo) {
-        return veiculoRepository.findById(idVeiculo).orElseThrow(() -> new RuntimeException("Veículo não encontrado"));    
-    }
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Statusdoeiculo {
+public enum StatusVeiculo {
     CADASTRADO("Cadastrado"),
     EMMANUTENCAO("Em manutenção");
 

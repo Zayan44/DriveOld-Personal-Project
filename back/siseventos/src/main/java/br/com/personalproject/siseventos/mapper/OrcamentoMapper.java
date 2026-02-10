@@ -1,6 +1,7 @@
 package br.com.personalproject.siseventos.mapper;
 import br.com.personalproject.siseventos.dto.OrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.OrcamentoResponseDTO;
+import br.com.personalproject.siseventos.entity.Mecanico;
 import br.com.personalproject.siseventos.entity.Orcamento;
 import br.com.personalproject.siseventos.entity.Veiculo;
 
@@ -10,14 +11,13 @@ public class OrcamentoMapper {
 
         OrcamentoResponseDTO dto = new OrcamentoResponseDTO();
 
-        dto.setIdOrcamento(entity.getIdOrcamento());
+        dto.setId(entity.getId());
         dto.setIdVeiculo(entity.getVeiculo().getId());
+        dto.setNomeMecanico(entity.getMecanico().getNome());
         dto.setPlaca(entity.getVeiculo().getPlaca());
         dto.setModelo(entity.getVeiculo().getModelo());
         dto.setStatus(entity.getStatus());
         dto.setValorTotal(entity.getValorTotal());
-
-        dto.setDesconto(entity.getDesconto());
 
         dto.setItensOrcamento(
             entity.getItensOrcamento()
@@ -29,13 +29,13 @@ public class OrcamentoMapper {
         return dto;
     }
 
-    public static Orcamento toEntity(OrcamentoRequestDTO dto, Veiculo veiculo) {
+    public static Orcamento toEntity(OrcamentoRequestDTO dto, Veiculo veiculo,Mecanico mecanico) {
 
-        Orcamento orcamento = new Orcamento();
+        Orcamento entity = new Orcamento();
         
-        orcamento.setVeiculo(veiculo);
-        orcamento.setStatus(dto.getStatus());
-        orcamento.setDesconto(dto.getDesconto());
-        return orcamento;
+        entity.setMecanico(mecanico);
+        entity.setVeiculo(veiculo);
+        entity.setStatus(dto.getStatus());
+        return entity;
     }
 }

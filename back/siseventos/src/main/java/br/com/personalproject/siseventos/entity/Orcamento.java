@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.personalproject.siseventos.association.ItemOrcamento;
+import br.com.personalproject.siseventos.enumerated.StatusOrcamento;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +36,7 @@ public class Orcamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long idOrcamento;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "fk_veiculo_id", nullable = false)
@@ -46,7 +50,12 @@ public class Orcamento {
     private List<ItemOrcamento> itensOrcamento = new ArrayList<>();
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusOrcamento status;
+
+    @JoinColumn(name = "fk_mecanico", nullable=false)
+    @OneToOne
+    Mecanico mecanico;
 
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
@@ -54,8 +63,6 @@ public class Orcamento {
     @Column(name = "desconto")
     private BigDecimal desconto;
     
-        //regras
-
     public void adicionarItemOrcamento(ItemOrcamento itemOrcamento) {
         itemOrcamento.setOrcamento(this);
         this.itensOrcamento.add(itemOrcamento);

@@ -71,7 +71,6 @@ public class ItemOrcamentoService {
 
         ItemOrcamento item = itemOrcamentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item não encontrado"));
-
         itemOrcamentoRepository.delete(item);
     }
 

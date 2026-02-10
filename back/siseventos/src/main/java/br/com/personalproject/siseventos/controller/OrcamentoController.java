@@ -33,14 +33,14 @@ public class OrcamentoController {
     }
 
     @PostMapping("/cadastrar/{id}")
-    public ResponseEntity<OrcamentoResponseDTO> cadastrarOrcamento(@Valid @RequestBody OrcamentoRequestDTO orcamento, @PathVariable Long id) {
+    public ResponseEntity<OrcamentoResponseDTO> cadastrarOrcamento(@Valid @RequestBody OrcamentoRequestDTO orcamento, @PathVariable Long idVeiculo, @PathVariable Long idMecanico) {
         
-        OrcamentoResponseDTO response = orcamentoService.criarOrcamento(orcamento, id);
+        OrcamentoResponseDTO response = orcamentoService.criarOrcamento(orcamento, idVeiculo,idMecanico);
         
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
-        .buildAndExpand(response.getIdOrcamento())
+        .buildAndExpand(response.getId())
         .toUri();
         
         return ResponseEntity.created(location).body(response);

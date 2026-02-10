@@ -9,10 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.personalproject.siseventos.association.ItemOrcamento;
 import br.com.personalproject.siseventos.dto.OrcamentoRequestDTO;
 import br.com.personalproject.siseventos.dto.OrcamentoResponseDTO;
+import br.com.personalproject.siseventos.entity.Mecanico;
 import br.com.personalproject.siseventos.entity.Orcamento;
+import br.com.personalproject.siseventos.entity.Peca;
 import br.com.personalproject.siseventos.entity.Veiculo;
+import br.com.personalproject.siseventos.enumerated.StatusOrcamento;
+import br.com.personalproject.siseventos.enumerated.TipoItemOrcamento;
 import br.com.personalproject.siseventos.mapper.OrcamentoMapper;
+import br.com.personalproject.siseventos.repository.MecanicoRepository;
 import br.com.personalproject.siseventos.repository.OrcamentoRepository;
+import br.com.personalproject.siseventos.repository.PecaRepository;
+import br.com.personalproject.siseventos.repository.VeiculoRepository;
 
 @Service
 public class OrcamentoService {
@@ -23,6 +30,15 @@ public class OrcamentoService {
     @Autowired
     VeiculoService veiculoService;
 
+    @Autowired
+    PecaRepository pecaRepository;
+
+    @Autowired
+    VeiculoRepository veiculoRepository;
+
+    @Autowired
+    MecanicoRepository mecanicoRepository;
+
     @Transactional(readOnly = true)
     public List<OrcamentoResponseDTO> listarOrcamento() {
         return orcamentoRepository.findAll()
@@ -32,9 +48,10 @@ public class OrcamentoService {
     }
 
     @Transactional
-    public OrcamentoResponseDTO criarOrcamento(OrcamentoRequestDTO dto, Long id) {
-        Veiculo veiculo = veiculoService.buscarVeiculoPorId(id);
-        Orcamento orcamento = OrcamentoMapper.toEntity(dto,veiculo);
+    public OrcamentoResponseDTO criarOrcamento(OrcamentoRequestDTO dto, Long idVeiculo, Long idMecanico) { //resolver implementação do mecanico
+        Mecanico mecanico = mecanicoRepository.findById(idMecanico).orElseThrow(() -> new RuntimeException("Mecanico não encontrado"));
+        Veiculo veiculo = veiculoRepository.findById(idVeiculo).orElseThrow(() -> new RuntimeException("Veiculo não encontrado"));
+        Orcamento orcamento = OrcamentoMapper.toEntity(dto,veiculo,mecanico);
         orcamento = orcamentoRepository.save(orcamento);
         OrcamentoResponseDTO response = OrcamentoMapper.toDto(orcamento);
         return response;
@@ -63,5 +80,22 @@ public class OrcamentoService {
         
         orcamentoRepository.save(orcamento);
     }
+
+    @Transactional
+    public void cancelarOrcamento(Long idOrcamento) {
+        Orcamento orcamento = orcamentoRepository.findById(idOrcamento)
+                .orElseThrow(() -> new RuntimeException("Orçamento não encontrado"));
+
+        for (ItemOrcamento item : orcamento.getItensOrcamento()) {
+            if (TipoItemOrcamento.PECA.equals(item.getTipo())) {
+                Peca peca = item.getPeca();
+                peca.setQuantidade(peca.getQuantidade() + item.getQuantidade());
+                pecaRepository.save(peca);
+            }
+    }
+
+    orcamento.setStatus(StatusOrcamento.CANCELADO);
+    orcamentoRepository.save(orcamento);
+}
 
 }

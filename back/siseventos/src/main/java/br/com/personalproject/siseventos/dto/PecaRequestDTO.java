@@ -25,13 +25,11 @@ public class PecaRequestDTO {
     @Pattern(regexp = "^[A-Za-zá-úÁ-Ú ]+$", message = "Insira apenas letras em seu nome")
     private String nome;
 
-
     @NotBlank(message = "Insira um nome")
     @Size(min = 5, message = "O nome deve conter mais de três caracteres")
     @Size(max = 500, message = "O nome deve conter menos de 70 caracteres")
     @Pattern(regexp = "^[A-Za-zá-úÁ-Ú ]+$", message = "Insira apenas letras em seu nome")
     private String descricao;
-
 
     @NotBlank(message = "Insira um nome")
     @Size(min = 3, message = "O nome deve conter mais de três caracteres")

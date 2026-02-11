@@ -32,6 +32,8 @@ ClienteService clienteService;
     @GetMapping("/listar")
     public ResponseEntity<List<ClienteResponseDTO>> listarCliente() {
     List<ClienteResponseDTO> response = clienteService.listarCliente();
+
+    
     return ResponseEntity.ok(response);
     }
 

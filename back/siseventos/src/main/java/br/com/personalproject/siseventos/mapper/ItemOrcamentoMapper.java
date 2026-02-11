@@ -41,10 +41,7 @@ public class ItemOrcamentoMapper {
         } else {
             dto.setIdReferencia(item.getPeca().getId());
             dto.setNomeReferencia(item.getPeca().getNome());
-        }
-
-        
-        
+        }      
         return dto;
     }
 }

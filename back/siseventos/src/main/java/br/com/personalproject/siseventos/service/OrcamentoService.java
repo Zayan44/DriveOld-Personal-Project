@@ -28,9 +28,6 @@ public class OrcamentoService {
     OrcamentoRepository orcamentoRepository;
 
     @Autowired
-    VeiculoService veiculoService;
-
-    @Autowired
     PecaRepository pecaRepository;
 
     @Autowired
@@ -59,8 +56,9 @@ public class OrcamentoService {
 
 
     @Transactional 
-    public void adicionarItemOrcamentoAoOrcamento(Long idOrcamento, ItemOrcamento item ) {
+    public void adicionarItemOrcamentoAoOrcamento(Long idOrcamento, ItemOrcamento item, Long idPeca ) {
         Orcamento orcamento = orcamentoRepository.findById(idOrcamento).orElseThrow(() -> new RuntimeException("Orcamento não encontrado"));
+        item.setQuantidade(item.getPeca().getQuantidade() - item.getQuantidade());
         orcamento.adicionarItemOrcamento(item);
         orcamentoRepository.save(orcamento);
     }

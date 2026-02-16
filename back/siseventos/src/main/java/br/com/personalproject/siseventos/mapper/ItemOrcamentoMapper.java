@@ -36,11 +36,11 @@ public class ItemOrcamentoMapper {
         dto.setTipo(item.getTipo());
         
         if (item.getTipo().equals(TipoItemOrcamento.SERVICO)) {
-            dto.setIdReferencia(item.getServico().getId());
-            dto.setNomeReferencia(item.getServico().getNome());
+            dto.setIdProduto(item.getServico().getId());
+            dto.setNomeProduto(item.getServico().getNome());
         } else {
-            dto.setIdReferencia(item.getPeca().getId());
-            dto.setNomeReferencia(item.getPeca().getNome());
+            dto.setIdProduto(item.getPeca().getId());
+            dto.setNomeProduto(item.getPeca().getNome());
         }      
         return dto;
     }

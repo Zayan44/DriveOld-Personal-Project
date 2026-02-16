@@ -42,7 +42,7 @@ public class ServicoController {
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
-        .buildAndExpand(response.getIdServico())
+        .buildAndExpand(response.getId())
         .toUri();
 
         return ResponseEntity.created(location).body(response);

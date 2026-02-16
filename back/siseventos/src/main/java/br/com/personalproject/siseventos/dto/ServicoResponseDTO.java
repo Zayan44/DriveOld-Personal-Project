@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ServicoResponseDTO {
 
-    private Long idServico;
+    private Long id;
     private String nome;
     private String placa;
     private String descricao;

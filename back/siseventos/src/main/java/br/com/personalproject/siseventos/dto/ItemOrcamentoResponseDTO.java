@@ -15,8 +15,8 @@ import lombok.Setter;
 public class ItemOrcamentoResponseDTO {
 
     private Long id;
-    private Long idReferencia; //peca ou servico
-    private String nomeReferencia;
+    private Long idProduto; //peca ou servico
+    private String nomeProduto;
     private TipoItemOrcamento tipo;
     private int quantidade;
     private BigDecimal valorUnitario;

@@ -23,7 +23,7 @@ public abstract class Pessoa {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "fk_conta",nullable = false,unique = true)
+    @JoinColumn(name = "fk_conta",unique = true)
     private Conta conta;
     
     private String nome;

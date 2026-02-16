@@ -56,5 +56,4 @@ public class PecaService {
         Peca peca = pecaRepository.findById(id).orElseThrow(() -> new RuntimeException("Peça não encontrada"));
         return peca;
     }
-
 }

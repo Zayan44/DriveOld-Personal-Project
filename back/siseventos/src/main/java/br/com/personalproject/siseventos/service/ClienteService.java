@@ -19,6 +19,11 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
+
+    public ClienteService(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
+
     @Transactional(readOnly = true)
     public List<ClienteResponseDTO> listarCliente() {
 

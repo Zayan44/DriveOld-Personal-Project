@@ -2,7 +2,6 @@ package br.com.personalproject.siseventos.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +14,11 @@ import br.com.personalproject.siseventos.repository.MecanicoRepository;
 @Service
 public class MecanicoService {
 
-    @Autowired
-    private MecanicoRepository mecanicoRepository;
+    private final MecanicoRepository mecanicoRepository;
+
+    public MecanicoService(MecanicoRepository mecanicoRepository) {
+        this.mecanicoRepository = mecanicoRepository;
+    }
 
     @Transactional(readOnly = true)
     public List<MecanicoResponseDTO> listarMecanico() {

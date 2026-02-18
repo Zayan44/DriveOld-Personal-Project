@@ -2,7 +2,6 @@ package br.com.personalproject.siseventos.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.personalproject.siseventos.dto.VeiculoRequestDTO;
@@ -16,11 +15,13 @@ import br.com.personalproject.siseventos.repository.VeiculoRepository;
 @Service
 public class VeiculoService {
 
-    @Autowired
-    private VeiculoRepository veiculoRepository;
+    private final VeiculoRepository veiculoRepository;
+    private final ClienteRepository clienteRepository;
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    public VeiculoService(VeiculoRepository veiculoRepository,ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+        this.veiculoRepository = veiculoRepository;
+    }
 
     public List<VeiculoResponseDTO> listarVeiculo() {
 

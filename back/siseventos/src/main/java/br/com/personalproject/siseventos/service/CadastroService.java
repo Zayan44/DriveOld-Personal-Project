@@ -1,6 +1,5 @@
 package br.com.personalproject.siseventos.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,20 +11,22 @@ import br.com.personalproject.siseventos.repository.ContaRepository;
 @Service
 public class CadastroService {
 
-    @Autowired
-    ContaRepository contaRepository;
+    private final ContaRepository contaRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    public CadastroService(ContaRepository contaRepository, PasswordEncoder passwordEncoder) {
+        this.contaRepository = contaRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-    public void validarCadastro(CadastroRequestDTO dto) {
+    public Conta validarCadastro(CadastroRequestDTO dto) {
 
-        Conta conta = ContaMapper.toEntityCadastro(dto);
+        contaRepository.findByEmail(dto.getEmail()).ifPresent(u -> {
+                throw new RuntimeException("E-mail já cadastrado");
+        });
 
-        conta.setSenha(passwordEncoder.encode(conta.getSenha()));
+        Conta novaConta = ContaMapper.toEntityCadastro(dto, passwordEncoder);
 
-        contaRepository.save(conta);
+        return contaRepository.save(novaConta);
     }
 }
-
-

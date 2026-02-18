@@ -15,7 +15,6 @@ public class ServicoResponseDTO {
 
     private Long id;
     private String nome;
-    private String placa;
     private String descricao;
     private BigDecimal preco;
 }

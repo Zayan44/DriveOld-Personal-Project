@@ -22,9 +22,8 @@ public class LoginController {
     
     @PostMapping("/funcionario")
     public ResponseEntity<?> realizarLogin(@Valid @RequestBody LoginRequestDTO dto) {
-                
         loginService.autenticar(dto);
+    return ResponseEntity.ok("Autenticado com sucesso");
+}
 
-        return ResponseEntity.ok("Autenticado com sucesso");
-    }
 }

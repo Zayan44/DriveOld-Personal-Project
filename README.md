@@ -92,9 +92,9 @@ src/main/java/br/com/personalproject/siseventos/
 
 ## 🛠️ Tecnologias Utilizadas 
 
-- Java 25
-- PostgreSQL 16+
-- Spring Security
+- Java 21
+- PostgreSQL 16
+- Spring Security 7.0.3
 - JWT
 - Lombok
 - Spring JPA (Hibernate)

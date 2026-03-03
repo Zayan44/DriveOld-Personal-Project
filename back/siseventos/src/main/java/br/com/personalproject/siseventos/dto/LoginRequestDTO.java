@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginRequestDTO {
     @NotBlank(message = "O campo Longin precisa ser preenchido")
-    @Size(min = 10,max = 70, message = "O campo senha precisa estar entre 8 e 70 caracteres")
+    @Size(min = 4,max = 70, message = "O campo email precisa estar entre 4 e 70 caracteres")
     private String email;
 
     @NotBlank(message = "O campo senha precisa ser preenchido")

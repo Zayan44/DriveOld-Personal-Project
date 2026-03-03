@@ -19,5 +19,4 @@ public class Mecanico extends Pessoa {
     //Atributos
     @Column(name = "especialidade")
     private String especialidade;
-
 }
